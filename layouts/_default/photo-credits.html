@@ -1,0 +1,11 @@
+{{ define "main" }}
+<article class="container section single-page">{{ partial "breadcrumb.html" . }}
+<header class="page-title"><h1>{{ .Title }}</h1><p class="hero-description">{{ .Description }}</p></header>
+<div class="prose">{{ .Content }}
+{{ range where .Site.RegularPages "Section" "blog" }}{{ if .Params.imageCredit }}
+<section><h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+<p>{{ .Params.imageCaption }}</p>
+{{ $creditLicense := .Params.imageLicense }}<p><a href="{{ .Params.imageSource }}">{{ .Params.imageCredit }}</a>{{ with .Params.imageLicenseURL }} (<a href="{{ . }}">{{ $creditLicense }}</a>){{ end }}</p>
+{{ with .Params.imageChanges }}<p>{{ . }}</p>{{ end }}</section>
+{{ end }}{{ end }}
+</div></article>{{ end }}
