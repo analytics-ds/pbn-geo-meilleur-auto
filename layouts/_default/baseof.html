@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="{{ .Lang }}"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ partial "title.html" . }}</title>
+<meta name="description" content="{{ .Description | default .Site.Params.description }}">
+{{ partial "seo-head.html" . }}
+{{ $css := resources.Get "css/main.css" | minify | fingerprint }}<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+</head><body>
+<a class="skip" href="#main-content">{{ if eq .Lang "en" }}Skip to content{{ else }}Aller au contenu{{ end }}</a>
+{{ partial "header.html" . }}
+<main id="main-content">{{ block "main" . }}{{ end }}</main>
+{{ partial "footer.html" . }}
+{{ $js := resources.Get "js/site.js" | minify | fingerprint }}<script src="{{ $js.RelPermalink }}" defer></script>
+</body></html>

@@ -1,0 +1,6 @@
+{{ $en := eq .Lang "en" }}
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ .Site.Title }}"><span class="brand-mark" aria-hidden="true">M<span>A</span></span><span>meilleur<span class="brand-auto">auto.</span></span></a>
+<nav class="desktop-nav" aria-label="{{ if $en }}Main navigation{{ else }}Navigation principale{{ end }}">{{ partial "media-nav.html" . }}</nav>
+<div class="header-actions"><div class="languages"><span aria-current="true">{{ upper .Lang }}</span>{{ range .Translations }}<a href="{{ .RelPermalink }}" lang="{{ .Lang }}" hreflang="{{ .Lang }}">{{ upper .Lang }}</a>{{ end }}</div><button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menu"><span></span><span></span></button></div>
+</div><nav id="mobile-nav" class="mobile-nav" hidden aria-label="{{ if $en }}Mobile navigation{{ else }}Navigation mobile{{ end }}">{{ partial "media-nav.html" . }}</nav></header>

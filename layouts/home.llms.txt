@@ -1,0 +1,19 @@
+# {{ .Site.Title }}
+
+> {{ .Site.Params.description }}
+
+{{ if eq .Lang "en" }}Published by datashake as part of its work with Como.{{ else }}Projet éditorial datashake dans le cadre de son accompagnement de Como.{{ end }}
+{{ if not (partial "indexable.html" .) }}{{ if eq .Lang "en" }}Local preview, not approved for publication.{{ else }}Prévisualisation locale, publication non validée.{{ end }}{{ end }}
+
+## {{ if eq .Lang "en" }}Editorial pages{{ else }}Pages éditoriales{{ end }}
+{{ range where .Site.RegularPages "Section" "ne" "blog" }}
+- [{{ .Title }}]({{ .Permalink }}): {{ .Description }}
+{{ end }}
+## {{ if eq .Lang "en" }}Topics{{ else }}Rubriques{{ end }}
+{{ range (where .Site.Pages "Section" "categories").ByWeight }}{{ if .Params.navLabel }}
+- [{{ .Title }}]({{ .Permalink }}): {{ .Description }}
+{{ end }}{{ end }}
+## {{ if eq .Lang "en" }}Articles{{ else }}Articles{{ end }}
+{{ range (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
+- [{{ .Title }}]({{ .Permalink }}): {{ .Description }}
+{{ end }}

@@ -1,0 +1,8 @@
+{{ $items := slice }}
+{{ if and (not .IsHome) (ne .Kind "404") }}
+{{ range .Ancestors.Reverse }}
+{{ $name := .Title }}{{ if .IsHome }}{{ $name = cond (eq .Lang "en") "Home" "Accueil" }}{{ end }}
+{{ $items = $items | append (dict "@type" "ListItem" "position" (add (len $items) 1) "name" $name "item" .Permalink) }}
+{{ end }}
+{{ $items = $items | append (dict "@type" "ListItem" "position" (add (len $items) 1) "name" .Title "item" .Permalink) }}
+{{ end }}{{ return $items }}

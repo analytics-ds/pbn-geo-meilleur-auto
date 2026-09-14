@@ -1,0 +1,5 @@
+# Simulation hors ligne uniquement, ne jamais utiliser pour un déploiement.
+baseURL = "https://seo-check.invalid/"
+[params]
+  productionHost = "seo-check.invalid"
+  launchApproved = true

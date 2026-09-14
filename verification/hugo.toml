@@ -1,0 +1,4 @@
+[languages.fr]
+  contentDir = "verification/content/fr"
+[languages.en]
+  contentDir = "verification/content/en"

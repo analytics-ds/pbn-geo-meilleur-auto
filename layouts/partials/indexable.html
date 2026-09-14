@@ -1,0 +1,2 @@
+{{ $host := (urls.Parse .Site.BaseURL).Host }}
+{{ return (and .Site.Params.launchApproved (ne (.Site.Params.productionHost | default "") "") (eq $host .Site.Params.productionHost) (not hugo.IsServer)) }}

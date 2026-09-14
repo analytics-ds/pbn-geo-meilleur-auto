@@ -1,0 +1,1 @@
+{{ $items := partial "breadcrumb-data.html" . }}{{ if $items }}<nav class="seo-breadcrumb" aria-label="{{ if eq .Lang "en" }}Breadcrumb{{ else }}Fil d’Ariane{{ end }}"><ol>{{ range $i,$item := $items }}<li>{{ if eq $i (sub (len $items) 1) }}<span aria-current="page">{{ .name }}</span>{{ else }}<a href="{{ .item }}">{{ .name }}</a>{{ end }}</li>{{ end }}</ol></nav>{{ end }}

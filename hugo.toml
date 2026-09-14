@@ -1,0 +1,55 @@
+baseURL = "https://analytics-ds.github.io/pbn-geo-meilleur-auto/"
+title = "Meilleur Auto"
+defaultContentLanguage = "fr"
+defaultContentLanguageInSubdir = false
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+[taxonomies]
+  category = "themes"
+  tag = "tags"
+[params]
+  productionHost = ""
+  launchApproved = false
+  default_og_image = "images/route-alpine.jpg"
+  logo = "favicon.svg"
+[languages.fr]
+  locale = "fr-FR"
+  label = "Français"
+  weight = 1
+  contentDir = "content/fr"
+  [languages.fr.params]
+    description = "Le média automobile : modèles, mobilité électrique, économie du secteur et vie pratique."
+[languages.en]
+  locale = "en-GB"
+  label = "English"
+  weight = 2
+  contentDir = "content/en"
+  [languages.en.params]
+    description = "The automotive journal: models, electric mobility, industry and everyday motoring."
+[outputs]
+  home = ["HTML", "RSS", "LLMS"]
+  section = ["HTML", "RSS"]
+[outputFormats.LLMS]
+  mediaType = "text/plain"
+  baseName = "llms"
+  isPlainText = true
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+  ordered = true
+[markup.goldmark.renderer]
+  unsafe = false
+[sitemap]
+  filename = "sitemap.xml"
+  changefreq = "monthly"
+  priority = 0.5
+[related]
+  threshold = 80
+  includeNewer = true
+  [[related.indices]]
+    name = "categories"
+    weight = 100
+
+  [[related.indices]]
+    name = "tags"
+    weight = 80

@@ -1,0 +1,12 @@
+{{ $en := eq .Lang "en" }}
+<a href="{{ (cond $en "en/blog/" "blog/") | relURL }}">{{ if $en }}The journal{{ else }}Le journal{{ end }}</a>
+<details class="mega-menu">
+<summary>{{ if $en }}Explore topics{{ else }}Les rubriques{{ end }} <span aria-hidden="true">+</span></summary>
+<div class="mega-panel"><div class="mega-inner">
+<div class="mega-intro"><p class="eyebrow">{{ if $en }}The automotive journal{{ else }}Le magazine automobile{{ end }}</p><h2>{{ if $en }}Every angle.<br>One journal.{{ else }}Tous les angles.<br>Un même regard.{{ end }}</h2><a href="{{ (cond $en "en/categories/" "categories/") | relURL }}" class="text-link">{{ if $en }}All topics{{ else }}Toutes les rubriques{{ end }} <span aria-hidden="true">↗</span></a></div>
+<div class="mega-topics">{{ range sort (where .Site.Pages "Params.layout" "category") "Weight" }}<a href="{{ .RelPermalink }}" class="mega-topic"><span class="mega-number">{{ .Params.number }}</span><span><strong>{{ .Title }}</strong><small>{{ .Description }}</small></span><span class="mega-arrow" aria-hidden="true">↗</span></a>{{ end }}</div>
+<div class="mega-latest"><p class="eyebrow">{{ if $en }}Fresh from the journal{{ else }}À lire dans le journal{{ end }}</p>{{ range first 2 ((where .Site.RegularPages "Section" "blog").ByDate.Reverse) }}<a href="{{ .RelPermalink }}">{{ with .Params.image }}<img src="{{ . | relURL }}" alt="" width="240" height="150" loading="lazy">{{ end }}<strong>{{ .Title }}</strong></a>{{ end }}<a class="mega-archive" href="{{ (cond $en "en/archives/" "archives/") | relURL }}">{{ if $en }}Browse the archives{{ else }}Parcourir les archives{{ end }} ↗</a></div>
+</div></div></details>
+<a href="{{ (cond $en "en/archives/" "archives/") | relURL }}">Archives</a>
+<a href="{{ (cond $en "en/authors/" "auteurs/") | relURL }}">{{ if $en }}Authors{{ else }}Auteurs{{ end }}</a>
+<a href="{{ (cond $en "en/about/" "a-propos/") | relURL }}">{{ if $en }}About{{ else }}À propos{{ end }}</a>

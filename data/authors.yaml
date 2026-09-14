@@ -1,0 +1,9 @@
+redaction-meilleur-auto:
+  name: "La rédaction Meilleur Auto"
+  type: "organization"
+  role:
+    fr: "Rédaction automobile"
+    en: "Automotive editorial team"
+  bio:
+    fr: "Le projet éditorial automobile de datashake, dans le cadre de son accompagnement de Como."
+    en: "The automotive editorial project by datashake, as part of its work with Como."

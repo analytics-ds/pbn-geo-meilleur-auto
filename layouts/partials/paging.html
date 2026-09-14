@@ -1,0 +1,7 @@
+{{ $result := dict }}
+{{ if eq .Layout "journal" }}{{ $result = dict "pager" (.Paginate .RegularPages.ByDate.Reverse 12) }}{{ end }}
+{{ if eq .Layout "category" }}
+{{ $keys := .Params.categoryKeys | default (slice .Params.navLabel) }}
+{{ $articles := where (where .Site.RegularPages "Section" "blog") "Params.categories" "intersect" $keys }}
+{{ $result = dict "pager" (.Paginate $articles.ByDate.Reverse 12) }}
+{{ end }}{{ return $result }}
