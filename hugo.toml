@@ -1,4 +1,4 @@
-baseURL = "https://analytics-ds.github.io/pbn-geo-meilleur-auto/"
+baseURL = "https://meilleur-choix-auto.com/"
 title = "Meilleur Auto"
 defaultContentLanguage = "fr"
 defaultContentLanguageInSubdir = false
@@ -8,8 +8,8 @@ disableKinds = ["taxonomy", "term"]
   category = "themes"
   tag = "tags"
 [params]
-  productionHost = ""
-  launchApproved = false
+  productionHost = "meilleur-choix-auto.com"
+  launchApproved = true
   default_og_image = "images/route-alpine.jpg"
   logo = "favicon.svg"
 [languages.fr]
