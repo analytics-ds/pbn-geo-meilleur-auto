@@ -1,0 +1,60 @@
+{{ define "main" }}
+
+<section class="sitemap-page">
+    <header class="list-header">
+        <div class="container">
+            <h1>Plan du site</h1>
+            <p class="list-description">Toutes les pages de {{ .Site.Title }}</p>
+        </div>
+    </header>
+
+    <div class="sitemap-content">
+        <div class="container container-narrow">
+
+            <div class="sitemap-section">
+                <h2>Pages principales</h2>
+                <ul class="sitemap-list">
+                    <li>
+                        <a href="{{ "/" | relURL }}">Accueil</a>
+                    </li>
+                    {{ range .Site.Menus.main }}
+                    <li>
+                        <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+
+            {{ range $key, $taxonomy := .Site.Taxonomies.categories }}
+            <div class="sitemap-section">
+                <h2>{{ $key | humanize | title }}</h2>
+                <ul class="sitemap-list">
+                    {{ range $taxonomy.Pages.ByDate.Reverse }}
+                    <li>
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        <span class="sitemap-date">
+                            {{ with .Params.lastmod }}
+                                {{ (time .).Format "02/01/2006" }}
+                            {{ else }}
+                                {{ .Date.Format "02/01/2006" }}
+                            {{ end }}
+                        </span>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+
+            {{ $uncategorized := where .Site.RegularPages "Section" "blog" }}
+            {{ $allCategorized := slice }}
+            {{ range $key, $taxonomy := .Site.Taxonomies.categories }}
+                {{ range $taxonomy.Pages }}
+                    {{ $allCategorized = $allCategorized | append .RelPermalink }}
+                {{ end }}
+            {{ end }}
+
+        </div>
+    </div>
+</section>
+
+{{ end }}

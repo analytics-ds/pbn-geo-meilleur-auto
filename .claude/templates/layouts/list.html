@@ -1,0 +1,47 @@
+{{ define "main" }}
+
+<section class="list-header">
+    <div class="container">
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}<p class="list-description">{{ . }}</p>{{ end }}
+        <span class="list-count">{{ len .Pages }} {{ if gt (len .Pages) 1 }}articles{{ else }}article{{ end }}</span>
+    </div>
+</section>
+
+<section class="list-content">
+    <div class="container">
+        <div class="articles-list">
+            {{ range .Pages.ByDate.Reverse }}
+            <article class="article-card-horizontal">
+                <a href="{{ .RelPermalink }}" class="article-card-horizontal-image-wrapper" aria-label="{{ .Title }}">
+                    {{ if .Params.image }}
+                    <img src="{{ .Params.image | relURL }}" alt="{{ .Params.imageAlt | default .Title }}" class="article-card-horizontal-image" loading="lazy" width="300" height="200">
+                    {{ else }}
+                    <span class="article-card-horizontal-image article-card-image-placeholder" aria-hidden="true">{{ slicestr .Title 0 1 }}</span>
+                    {{ end }}
+                </a>
+                <div class="article-body">
+                    <div class="article-meta">
+                        {{ with .Params.categories }}
+                        <span class="article-category">{{ index . 0 }}</span>
+                        {{ end }}
+                        <time>{{ .Date.Format "2 January 2006" }}</time>
+                        {{ if .Params.readingTime }}
+                        <span class="reading-time">{{ .ReadingTime }} min</span>
+                        {{ end }}
+                    </div>
+                    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                    <p>{{ .Description }}</p>
+                    <div class="article-tags">
+                        {{ range .Params.tags }}
+                        <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+                        {{ end }}
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+{{ end }}

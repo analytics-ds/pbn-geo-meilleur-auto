@@ -1,0 +1,210 @@
+{{ define "main" }}
+
+<article class="single-article">
+    <div class="container">
+
+        <!-- Breadcrumb visuel -->
+        <nav class="breadcrumb" aria-label="Fil d'Ariane">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="{{ "/" | relURL }}">Accueil</a>
+                    <svg class="breadcrumb-sep" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 4 10 8 6 12" /></svg>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ "blog/" | relURL }}">Blog</a>
+                    <svg class="breadcrumb-sep" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 4 10 8 6 12" /></svg>
+                </li>
+                {{ with .Params.categories }}
+                <li class="breadcrumb-item">
+                    <a href="{{ printf "categories/%s/" (index . 0 | urlize) | relURL }}">{{ index . 0 }}</a>
+                    <svg class="breadcrumb-sep" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 4 10 8 6 12" /></svg>
+                </li>
+                {{ end }}
+                <li class="breadcrumb-item">
+                    <span aria-current="page">{{ .Title }}</span>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Hero article (titre + image cote a cote) -->
+        <div class="article-hero">
+            <div class="article-hero-text">
+                <div class="article-meta">
+                    {{ with .Params.categories }}
+                    <a href="{{ printf "categories/%s/" (index . 0 | urlize) | relURL }}" class="article-category">{{ index . 0 }}</a>
+                    {{ end }}
+                    <span class="meta-separator">·</span>
+                    <time class="article-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+                    <span class="meta-separator">·</span>
+                    <span class="article-reading-time">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        {{ .ReadingTime }} min de lecture
+                    </span>
+                </div>
+
+                <h1 class="article-title">{{ .Title }}</h1>
+                {{ with .Description }}
+                <p class="article-description">{{ . }}</p>
+                {{ end }}
+
+                {{ $lang := .Site.Language.Lang }}
+                {{ $authorData := dict }}
+                {{ with .Params.author }}
+                    {{ $authorData = index hugo.Data.authors . }}
+                {{ end }}
+                <div class="article-author-bar">
+                    {{ with $authorData }}
+                    <div class="author-info">
+                        {{ with .avatar }}
+                        <img src="{{ . | relURL }}" alt="{{ $authorData.name }}" class="author-avatar" width="48" height="48" loading="lazy">
+                        {{ else }}
+                        <div class="author-avatar author-avatar-placeholder" aria-hidden="true">{{ slicestr .name 0 1 }}</div>
+                        {{ end }}
+                        <div class="author-text">
+                            <span class="author-name">{{ .name }}</span>
+                            {{ with index .role $lang }}
+                            <span class="author-role">{{ . }}</span>
+                            {{ end }}
+                        </div>
+                    </div>
+                    {{ end }}
+                    {{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}
+                    <div class="article-updated">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                        {{ if eq $lang "en" }}Updated on {{ .Lastmod.Format "2 January 2006" }}{{ else }}Mis a jour le {{ .Lastmod.Format "2 January 2006" }}{{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+
+                <div class="article-tags">
+                    {{ range .Params.tags }}
+                    <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+                    {{ end }}
+                </div>
+            </div>
+
+            {{ with .Params.image }}
+            <div class="article-hero-image">
+                <img src="{{ . | relURL }}" alt="{{ with $.Params.imageAlt }}{{ . }}{{ else }}{{ $.Title }}{{ end }}" width="600" height="400" loading="eager" fetchpriority="high">
+                {{ with $.Params.imageCredit }}
+                <small class="article-hero-image-credit">{{ . }}</small>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+
+        <!-- Layout 2 colonnes : sidebar TOC + contenu -->
+        <div class="article-layout">
+
+            <!-- Sidebar : Table of Contents sticky -->
+            {{ $headings := .TableOfContents }}
+            {{ if $headings }}
+            <aside class="article-sidebar">
+                <nav class="toc" aria-label="Sommaire">
+                    <div class="toc-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="15" y2="12" /><line x1="3" y1="18" x2="18" y2="18" /></svg>
+                        Sommaire
+                    </div>
+                    {{ .TableOfContents }}
+                </nav>
+            </aside>
+            {{ end }}
+
+            <div class="article-main">
+                <div class="prose article-content">
+                    {{ .Content }}
+                </div>
+
+                <!-- Tags en bas d'article -->
+                <div class="article-tags-bottom">
+                    {{ range .Params.tags }}
+                    <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">#{{ . }}</a>
+                    {{ end }}
+                </div>
+
+                <!-- Bloc auteur (bio complete en fin d'article) -->
+                {{ with $authorData }}
+                <aside class="author-box" aria-label="{{ if eq $lang "en" }}About the author{{ else }}A propos de l'auteur{{ end }}">
+                    {{ with .avatar }}
+                    <img src="{{ . | relURL }}" alt="{{ $authorData.name }}" class="author-box-avatar" width="96" height="96" loading="lazy">
+                    {{ else }}
+                    <div class="author-box-avatar author-avatar-placeholder" aria-hidden="true">{{ slicestr .name 0 1 }}</div>
+                    {{ end }}
+                    <div class="author-box-content">
+                        <span class="author-box-label">{{ if eq $lang "en" }}About the author{{ else }}A propos de l'auteur{{ end }}</span>
+                        <h3 class="author-box-name">{{ .name }}</h3>
+                        {{ with index .role $lang }}
+                        <span class="author-box-role">{{ . }}</span>
+                        {{ end }}
+                        {{ with index .bio $lang }}
+                        <p class="author-box-bio">{{ . }}</p>
+                        {{ end }}
+                        {{ with .expertise }}
+                        <div class="author-box-expertise">
+                            <span class="author-box-expertise-label">{{ if eq $lang "en" }}Expertise:{{ else }}Expertise :{{ end }}</span>
+                            {{ range $i, $e := . }}{{ if $i }}, {{ end }}<span class="author-box-expertise-item">{{ $e }}</span>{{ end }}
+                        </div>
+                        {{ end }}
+                    </div>
+                </aside>
+                {{ end }}
+
+                <!-- Articles similaires -->
+                {{ $related := .Site.RegularPages.Related . | first 3 }}
+                {{ if $related }}
+                <aside class="related-articles">
+                    <h2 class="related-title">Articles similaires</h2>
+                    <div class="related-grid">
+                        {{ range $related }}
+                        <a href="{{ .RelPermalink }}" class="related-card">
+                            {{ with .Params.categories }}
+                            <span class="related-category">{{ index . 0 }}</span>
+                            {{ end }}
+                            <h3>{{ .Title }}</h3>
+                            <p>{{ .Description }}</p>
+                        </a>
+                        {{ end }}
+                    </div>
+                </aside>
+                {{ end }}
+
+                <!-- Navigation prev/next -->
+                <nav class="article-footer" aria-label="Navigation articles">
+                    <div class="article-nav">
+                        {{ with .PrevInSection }}
+                        <a href="{{ .RelPermalink }}" class="nav-prev">
+                            <span class="nav-label">Article precedent</span>
+                            <span class="nav-title">{{ .Title }}</span>
+                        </a>
+                        {{ end }}
+                        {{ with .NextInSection }}
+                        <a href="{{ .RelPermalink }}" class="nav-next">
+                            <span class="nav-label">Article suivant</span>
+                            <span class="nav-title">{{ .Title }}</span>
+                        </a>
+                        {{ end }}
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</article>
+
+<!-- Highlight active TOC item on scroll -->
+<script>
+(function() {
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.toc a').forEach(function(a) { a.classList.remove('toc-active'); });
+                var link = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+                if (link) link.classList.add('toc-active');
+            }
+        });
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+    document.querySelectorAll('.article-content h2, .article-content h3').forEach(function(h) { observer.observe(h); });
+})();
+</script>
+
+{{ end }}

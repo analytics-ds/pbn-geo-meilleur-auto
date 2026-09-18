@@ -6,12 +6,13 @@ node_modules/
 .env
 *.log
 
-.claude/settings*.json
 .playwright-cli/
 
-# Local editorial work and internal instructions stay outside the public repository.
-.claude/
+# Internal instructions and editorial provenance stay outside the public repository.
+# roadmap.yaml et .claude/ y sont EN REVANCHE publies depuis le 2026-09-18 : la routine
+# cloud clone ce depot et y lit sa consigne et son backlog. Sans eux elle tourne, sort en
+# succes et ne publie rien. La copie publiee ne nomme aucun client.
 AGENTS.md
 CLAUDE.md
-roadmap.yaml
 publications.json
+roadmap-source-como.yaml

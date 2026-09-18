@@ -1,0 +1,22 @@
+# {{SITE_NAME}}
+
+> {{SITE_DESCRIPTION}}
+
+## A propos
+
+{{SITE_ABOUT}}
+
+## Contenu principal
+
+{{CATEGORIES_LIST}}
+
+## Articles recents
+
+{{RECENT_ARTICLES}}
+
+## Informations techniques
+
+- Generateur : Hugo
+- Hebergement : GitHub Pages
+- Sitemap : {{BASE_URL}}sitemap.xml
+- RSS : {{BASE_URL}}index.xml

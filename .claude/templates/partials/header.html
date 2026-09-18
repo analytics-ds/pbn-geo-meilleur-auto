@@ -1,0 +1,81 @@
+<header class="site-header">
+    <div class="header-container">
+        <a href="{{ "/" | relURL }}" class="site-logo" aria-label="{{ .Site.Title }}">
+            {{ .Site.Title }}
+        </a>
+
+        <nav class="site-nav" role="navigation" aria-label="Navigation principale">
+            {{ range .Site.Menus.main }}
+            <a href="{{ .URL | relURL }}" class="nav-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}">
+                {{ .Name }}
+            </a>
+            {{ end }}
+        </nav>
+
+        <!-- Language switcher -->
+        {{ if gt (len hugo.Sites) 1 }}
+        <div class="lang-switcher" aria-label="Language switcher">
+            {{ $defaultLang := .Site.Language.Locale | default "fr" }}
+            {{ $currentLang := .Site.Language.Lang }}
+            {{ range hugo.Sites }}
+            {{ $lang := . }}
+            {{ if eq $lang.Language.Lang $currentLang }}
+            <span class="lang-current" aria-current="true">{{ upper $lang.Language.Lang }}</span>
+            {{ else }}
+            {{ $target := "" }}
+            {{ range $.Translations }}
+                {{ if eq .Language.Lang $lang.Language.Lang }}{{ $target = .Permalink }}{{ end }}
+            {{ end }}
+            {{ if not $target }}
+                {{ $target = printf "/%s/" $lang.Language.Lang }}
+            {{ end }}
+            <a href="{{ $target }}" class="lang-link" hreflang="{{ $lang.Language.Lang }}">{{ upper $lang.Language.Lang }}</a>
+            {{ end }}
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+            <span class="hamburger"></span>
+        </button>
+    </div>
+
+    <nav class="nav-mobile" aria-label="Navigation mobile">
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL | relURL }}" class="nav-link-mobile">{{ .Name }}</a>
+        {{ end }}
+        {{ if gt (len hugo.Sites) 1 }}
+        <div class="lang-switcher-mobile">
+            {{ $currentLangM := .Site.Language.Lang }}
+            {{ range hugo.Sites }}
+            {{ $lang := . }}
+            {{ if eq $lang.Language.Lang $currentLangM }}
+            <span class="lang-current" aria-current="true">{{ upper $lang.Language.Lang }}</span>
+            {{ else }}
+            {{ $target := "" }}
+            {{ range $.Translations }}
+                {{ if eq .Language.Lang $lang.Language.Lang }}{{ $target = .Permalink }}{{ end }}
+            {{ end }}
+            {{ if not $target }}
+                {{ $target = printf "/%s/" $lang.Language.Lang }}
+            {{ end }}
+            <a href="{{ $target }}" class="lang-link" hreflang="{{ $lang.Language.Lang }}">{{ upper $lang.Language.Lang }}</a>
+            {{ end }}
+            {{ end }}
+        </div>
+        {{ end }}
+    </nav>
+</header>
+
+<script>
+(function() {
+    var toggle = document.querySelector('.menu-toggle');
+    var mobileNav = document.querySelector('.nav-mobile');
+    if (toggle && mobileNav) {
+        toggle.addEventListener('click', function() {
+            var isOpen = mobileNav.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+    }
+})();
+</script>

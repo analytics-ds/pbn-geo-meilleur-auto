@@ -1,0 +1,11 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "{{SITE_URL}}#organization",
+    "name": "{{SITE_TITLE}}",
+    "url": "{{SITE_URL}}",
+    "description": "{{SITE_DESCRIPTION}}",
+    "logo": "{{LOGO_URL}}",
+    "foundingDate": "{{FOUNDING_YEAR}}",
+    "knowsAbout": ["{{EXPERTISE_1}}", "{{EXPERTISE_2}}", "{{EXPERTISE_3}}"]
+}

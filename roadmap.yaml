@@ -1,0 +1,1580 @@
+# Roadmap editoriale evergreen — Meilleur Choix Auto (meilleur-choix-auto.com)
+#
+# Pilote la publication automatique (skill .claude/skills/create-article-auto, routine cloud).
+# Langue principale : fr (+ EN auto dans /en/)
+#
+# CADENCE : 2 articles/semaine, mardi et vendredi, 1h UTC (3h Paris en ete).
+#
+# ORDRE : les mots-cles sont consommes dans l'ordre des scheduled_date croissantes.
+# L'agent ne lit PAS l'ordre du fichier, il trie par date. Pour changer l'ordre de
+# publication, il faut donc changer les dates, pas deplacer les blocs.
+#
+# CHAMPS
+# ------
+# Edites par l'humain :
+#   kw              Mot-cle principal SEO cible (langue principale)
+#   category        Categorie editoriale (reconnue par les `categoryKeys` des pages de rubrique)
+#   volume          Volume mensuel de recherche (informatif, ignore par l'agent)
+#   kd              Difficulte du mot-cle 0-100 (informatif, ignore par l'agent)
+#   scheduled_date  YYYY-MM-DD, date a partir de laquelle l'agent peut publier
+#   status          todo | done | failed
+#
+# Remplis par l'agent (ne pas toucher sauf pour debloquer un failed) :
+#   published_date, published_url_fr, published_url_en, error
+#
+# COMMENT AJOUTER UNE ENTREE
+# --------------------------
+# 1. Copier un bloc existant, renseigner kw / category / scheduled_date
+# 2. Laisser status: todo et les autres champs a null
+# 3. Commit + push sur main. La prochaine execution cron eligible prendra l'entree.
+#
+# DEBLOQUER UN FAILED
+# -------------------
+# Lire le champ error, corriger, repasser status: todo et error: null, commit + push.
+#
+# LES ENTREES `done` DATEES D'AVANT LE 2026-09-22
+# ------------------------------------------------------------
+# Elles marquent des sujets deja couverts et servent a ne pas les reprendre.
+# L'agent les ignore. Ne pas les repasser en todo sans une raison.
+
+articles:
+
+  - kw: "vignette crit air"
+    category: "Conseils pratiques"
+    volume: 188200
+    kd: 39
+    scheduled_date: "2026-04-23"
+    status: done
+    published_date: "2026-04-23"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quand changer courroie de distribution"
+    category: "Conseils pratiques"
+    volume: 4200
+    kd: 36
+    scheduled_date: "2026-04-24"
+    status: done
+    published_date: "2026-04-24"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "meilleure voiture electrique"
+    category: "Electrique"
+    volume: 3100
+    kd: 39
+    scheduled_date: "2026-04-24"
+    status: done
+    published_date: "2026-04-24"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "diesel ou essence"
+    category: "Modeles et comparatifs"
+    volume: 3400
+    kd: 44
+    scheduled_date: "2026-04-24"
+    status: done
+    published_date: "2026-04-24"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely starray"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2026-05-05"
+    status: done
+    published_date: "2026-05-05"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "meilleure voiture hybride"
+    category: "Electrique"
+    volume: 2100
+    kd: 39
+    scheduled_date: "2026-05-08"
+    status: done
+    published_date: "2026-05-08"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely e5"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-05-12"
+    status: done
+    published_date: "2026-05-12"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "voiture chinoise"
+    category: "Modeles et comparatifs"
+    volume: 6100
+    kd: null
+    scheduled_date: "2026-05-19"
+    status: done
+    published_date: "2026-05-19"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "marque de voiture chinoise"
+    category: "Modeles et comparatifs"
+    volume: 3000
+    kd: null
+    scheduled_date: "2026-05-26"
+    status: done
+    published_date: "2026-05-26"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quand faire controle technique"
+    category: "Conseils pratiques"
+    volume: 1900
+    kd: 39
+    scheduled_date: "2026-05-29"
+    status: done
+    published_date: "2026-05-29"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "hybride ou hybride rechargeable"
+    category: "Electrique"
+    volume: 900
+    kd: 30
+    scheduled_date: "2026-06-23"
+    status: done
+    published_date: "2026-06-23"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 009"
+    category: "Modeles et comparatifs"
+    volume: 590
+    kd: null
+    scheduled_date: "2026-07-29"
+    status: done
+    published_date: "2026-07-29"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely coolray prix"
+    category: "Financement"
+    volume: 320
+    kd: null
+    scheduled_date: "2026-07-29"
+    status: done
+    published_date: "2026-07-29"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "suv chinois"
+    category: "Modeles et comparatifs"
+    volume: 2900
+    kd: null
+    scheduled_date: "2026-07-29"
+    status: done
+    published_date: "2026-07-29"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "concessionnaire geely"
+    category: "Concessionnaires"
+    volume: 20
+    kd: null
+    scheduled_date: "2026-07-29"
+    status: done
+    published_date: "2026-07-29"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely coolray"
+    category: "Modeles et comparatifs"
+    volume: 3600
+    kd: null
+    scheduled_date: "2026-07-29"
+    status: done
+    published_date: "2026-07-29"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "prix recharge voiture electrique"
+    category: "Electrique"
+    volume: 3100
+    kd: 27
+    scheduled_date: "2026-08-07"
+    status: done
+    published_date: "2026-08-07"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "voiture qui consomme le moins"
+    category: "Modeles et comparatifs"
+    volume: 1200
+    kd: 29
+    scheduled_date: "2026-08-11"
+    status: done
+    published_date: "2026-08-11"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr"
+    category: "Modeles et comparatifs"
+    volume: 27100
+    kd: null
+    scheduled_date: "2026-08-14"
+    status: done
+    published_date: "2026-08-14"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely voiture prix"
+    category: "Financement"
+    volume: 590
+    kd: null
+    scheduled_date: "2026-08-18"
+    status: done
+    published_date: "2026-08-18"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "voiture essence qui consomme le moins"
+    category: "Modeles et comparatifs"
+    volume: 500
+    kd: 25
+    scheduled_date: "2026-08-21"
+    status: done
+    published_date: "2026-08-21"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "voiture chinoise electrique"
+    category: "Electrique"
+    volume: 27100
+    kd: null
+    scheduled_date: "2026-08-25"
+    status: done
+    published_date: "2026-08-25"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "volvo chinois"
+    category: "Modeles et comparatifs"
+    volume: 480
+    kd: null
+    scheduled_date: "2026-08-28"
+    status: done
+    published_date: "2026-08-28"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely volvo"
+    category: "Modeles et comparatifs"
+    volume: 260
+    kd: null
+    scheduled_date: "2026-09-01"
+    status: done
+    published_date: "2026-09-01"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "voiture chinoise prix"
+    category: "Financement"
+    volume: 1000
+    kd: null
+    scheduled_date: "2026-09-01"
+    status: done
+    published_date: "2026-09-01"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "suv chinois hybride"
+    category: "Electrique"
+    volume: 1300
+    kd: null
+    scheduled_date: "2026-09-08"
+    status: done
+    published_date: "2026-09-08"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 9x"
+    category: "Modeles et comparatifs"
+    volume: 0
+    kd: null
+    scheduled_date: "2026-09-11"
+    status: done
+    published_date: "2026-09-11"
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "acheter une zeekr en france"
+    category: "Concessionnaires"
+    volume: null
+    kd: null
+    scheduled_date: "2026-09-22"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "meilleure alternative chinoise au tesla model y"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-09-25"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "a qui appartient zeekr"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2026-09-29"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "prix pour le cla electrique"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-02"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ou mg"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-06"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr choisir x 7x ou 001"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-09"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "fabrique zeekr"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-13"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "prix pour un mercedes glc"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-16"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ou byd quelle marque chinoise choisir"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-20"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quand zeekr arrive t il en france"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-23"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "avis sur les voitures zeekr"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-27"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "prix pour un mercedes gla"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2026-10-30"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr ou tesla quelle marque choisir"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-03"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "suv electrique chinois choisir en 2026"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-06"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 7 gt vs bmw i5 touring"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-10"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr est il fiable"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-13"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 001 vs tesla model 3 performance"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-17"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "prix pour le zeekr 7x en france"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-20"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr x ou smart 1"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-24"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "meilleur suv hybride rechargeable a moins de 40 000 euros"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2026-11-27"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr x ou volvo ex30"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-01"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "acheter une voiture chinoise en 2026"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-04"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 7x vs xpeng g6"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-08"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "prix pour le geely ex5 en france"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-11"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 7x vs byd sealion 7"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-15"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely starray ou byd seal u dm i"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-18"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 7x ou tesla model y"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-22"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely et volvo c est le meme groupe"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-25"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "est l autonomie reelle du geely ex5"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2026-12-29"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "prix pour le geely starray em i en france"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-01"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ex5 ou starray electrique ou hybride rechargeable"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-05"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely starray vs toyota rav4 hybride rechargeable"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-08"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ex5 ou kia ev3"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-12"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "possede geely"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-15"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ex5 vs peugeot e 3008"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-19"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely starray em i vs volkswagen tiguan ehybrid"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-22"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely est elle une marque fiable"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-26"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ex5 vs renault scenic e tech"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-01-29"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "le geely ex5 est il fiable"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-02"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ex5 vs tesla model y"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-05"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely starray em i ou peugeot 3008 hybride"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-09"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "avis sur le geely starray"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-12"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely ex5 ou byd atto 3"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-16"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "le geely starray em i est il fiable"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-19"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "autonomie electrique pour le starray em i"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-23"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "cout entretien mercedes"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-02-26"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "avantages fiscaux mercedes electrique professionnel"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-02"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment choisir son concessionnaire mercedes"
+    category: "Concessionnaires"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-05"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "aides achat voiture electrique"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-09"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "garantie constructeur mercedes"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-12"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "difference loa lld mercedes"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-16"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "autonomie cla electrique"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-19"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "gla ou glc lequel choisir"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-23"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quel apport pour une loa mercedes"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-26"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment negocier le prix d'une mercedes neuve"
+    category: "Conseils pratiques"
+    volume: null
+    kd: null
+    scheduled_date: "2027-03-30"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "mercedes electrique ou hybride"
+    category: "Electrique"
+    volume: null
+    kd: null
+    scheduled_date: "2027-04-02"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "mercedes classe a ou bmw serie 1"
+    category: "Modeles et comparatifs"
+    volume: null
+    kd: null
+    scheduled_date: "2027-04-06"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment fonctionne la loa mercedes"
+    category: "Financement"
+    volume: null
+    kd: null
+    scheduled_date: "2027-04-09"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "autonomie mercedes eqa"
+    category: "Modeles et comparatifs"
+    volume: 140
+    kd: 37
+    scheduled_date: "2027-04-13"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "consommation mercedes glc"
+    category: "Modeles et comparatifs"
+    volume: 20
+    kd: null
+    scheduled_date: "2027-04-16"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "consommation mercedes classe a"
+    category: "Modeles et comparatifs"
+    volume: 140
+    kd: 31
+    scheduled_date: "2027-04-20"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quelle mercedes choisir"
+    category: "Modeles et comparatifs"
+    volume: 50
+    kd: 25
+    scheduled_date: "2027-04-23"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "pourquoi voiture electrique"
+    category: "Electrique"
+    volume: 20
+    kd: null
+    scheduled_date: "2027-04-27"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "break ou suv"
+    category: "Modeles et comparatifs"
+    volume: 140
+    kd: 36
+    scheduled_date: "2027-04-30"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "huile moteur mercedes classe a"
+    category: "Conseils pratiques"
+    volume: 210
+    kd: 33
+    scheduled_date: "2027-05-04"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "berline ou suv"
+    category: "Modeles et comparatifs"
+    volume: 210
+    kd: 17
+    scheduled_date: "2027-05-07"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "meilleur suv familial"
+    category: "Modeles et comparatifs"
+    volume: 210
+    kd: 26
+    scheduled_date: "2027-05-11"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment choisir pneus hiver"
+    category: "Conseils pratiques"
+    volume: 10
+    kd: 38
+    scheduled_date: "2027-05-14"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "avis mercedes glc"
+    category: "Modeles et comparatifs"
+    volume: 236
+    kd: 41
+    scheduled_date: "2027-05-18"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment recharger une voiture electrique"
+    category: "Electrique"
+    volume: 118
+    kd: 20
+    scheduled_date: "2027-05-21"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "constructeur chinois voiture"
+    category: "Modeles et comparatifs"
+    volume: 90
+    kd: null
+    scheduled_date: "2027-05-25"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "avis mercedes classe a"
+    category: "Modeles et comparatifs"
+    volume: 390
+    kd: 24
+    scheduled_date: "2027-05-28"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "combien coute controle technique"
+    category: "Conseils pratiques"
+    volume: 200
+    kd: 34
+    scheduled_date: "2027-06-01"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely hybrid"
+    category: "Electrique"
+    volume: 10
+    kd: null
+    scheduled_date: "2027-06-04"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "voiture hybride ou electrique"
+    category: "Electrique"
+    volume: 200
+    kd: 21
+    scheduled_date: "2027-06-08"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely suv"
+    category: "Modeles et comparatifs"
+    volume: 20
+    kd: null
+    scheduled_date: "2027-06-11"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "combien coute carte grise"
+    category: "Conseils pratiques"
+    volume: 300
+    kd: 39
+    scheduled_date: "2027-06-15"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely smart"
+    category: "Modeles et comparatifs"
+    volume: 20
+    kd: null
+    scheduled_date: "2027-06-18"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment lire carte grise"
+    category: "Conseils pratiques"
+    volume: 300
+    kd: 39
+    scheduled_date: "2027-06-22"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely mercedes"
+    category: "Modeles et comparatifs"
+    volume: 20
+    kd: null
+    scheduled_date: "2027-06-25"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quand changer pneus voiture"
+    category: "Conseils pratiques"
+    volume: 436
+    kd: 42
+    scheduled_date: "2027-06-29"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely emgrand"
+    category: "Modeles et comparatifs"
+    volume: 30
+    kd: null
+    scheduled_date: "2027-07-02"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "cout entretien voiture electrique"
+    category: "Electrique"
+    volume: 536
+    kd: 25
+    scheduled_date: "2027-07-06"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely atlas"
+    category: "Modeles et comparatifs"
+    volume: 40
+    kd: null
+    scheduled_date: "2027-07-09"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quand changer batterie voiture"
+    category: "Conseils pratiques"
+    volume: 480
+    kd: 42
+    scheduled_date: "2027-07-13"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment fonctionne le leasing"
+    category: "Financement"
+    volume: 320
+    kd: 33
+    scheduled_date: "2027-07-16"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely boyue"
+    category: "Modeles et comparatifs"
+    volume: 90
+    kd: null
+    scheduled_date: "2027-07-20"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "quand faire vidange"
+    category: "Conseils pratiques"
+    volume: 1300
+    kd: 35
+    scheduled_date: "2027-07-23"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely renault"
+    category: "Modeles et comparatifs"
+    volume: 170
+    kd: null
+    scheduled_date: "2027-07-27"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "difference loa et lld"
+    category: "Financement"
+    volume: 720
+    kd: 28
+    scheduled_date: "2027-07-30"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely zeekr 001"
+    category: "Modeles et comparatifs"
+    volume: 110
+    kd: null
+    scheduled_date: "2027-08-03"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "vidange tous les combien"
+    category: "Conseils pratiques"
+    volume: 1700
+    kd: 27
+    scheduled_date: "2027-08-06"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely filiales"
+    category: "Modeles et comparatifs"
+    volume: 110
+    kd: null
+    scheduled_date: "2027-08-10"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "comment fonctionne une voiture hybride"
+    category: "Electrique"
+    volume: 1200
+    kd: 40
+    scheduled_date: "2027-08-13"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely gx3"
+    category: "Modeles et comparatifs"
+    volume: 210
+    kd: null
+    scheduled_date: "2027-08-17"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "duree de vie batterie voiture electrique"
+    category: "Electrique"
+    volume: 1000
+    kd: 32
+    scheduled_date: "2027-08-20"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely automobile"
+    category: "Modeles et comparatifs"
+    volume: 210
+    kd: null
+    scheduled_date: "2027-08-24"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "fiabilite voiture chinoise"
+    category: "Conseils pratiques"
+    volume: 50
+    kd: null
+    scheduled_date: "2027-08-27"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 8x prix france"
+    category: "Financement"
+    volume: 0
+    kd: null
+    scheduled_date: "2027-08-31"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr occasion"
+    category: "Occasion"
+    volume: 110
+    kd: null
+    scheduled_date: "2027-09-03"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr essai"
+    category: "Modeles et comparatifs"
+    volume: 20
+    kd: null
+    scheduled_date: "2027-09-07"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 8x"
+    category: "Electrique"
+    volume: 0
+    kd: null
+    scheduled_date: "2027-09-10"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr prix"
+    category: "Financement"
+    volume: 390
+    kd: null
+    scheduled_date: "2027-09-14"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "voiture geely avis"
+    category: "Modeles et comparatifs"
+    volume: 40
+    kd: null
+    scheduled_date: "2027-09-17"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 8x ou zeekr 9x quel suv choisir"
+    category: "Conseils pratiques"
+    volume: 0
+    kd: null
+    scheduled_date: "2027-09-21"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "logo geely"
+    category: "Modeles et comparatifs"
+    volume: 236
+    kd: null
+    scheduled_date: "2027-09-24"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "suv electrique chinois"
+    category: "Electrique"
+    volume: 880
+    kd: null
+    scheduled_date: "2027-09-28"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 9x prix"
+    category: "Financement"
+    volume: 0
+    kd: null
+    scheduled_date: "2027-10-01"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "volvo rachete par les chinois"
+    category: "Modeles et comparatifs"
+    volume: 50
+    kd: null
+    scheduled_date: "2027-10-05"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 7x prix"
+    category: "Financement"
+    volume: 720
+    kd: null
+    scheduled_date: "2027-10-08"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "zeekr 9x france"
+    category: "Electrique"
+    volume: 0
+    kd: null
+    scheduled_date: "2027-10-12"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "geely coolray avis"
+    category: "Modeles et comparatifs"
+    volume: 90
+    kd: null
+    scheduled_date: "2027-10-15"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
+
+  - kw: "combien coute une vidange"
+    category: "Conseils pratiques"
+    volume: 1000
+    kd: 38
+    scheduled_date: "2027-10-19"
+    status: todo
+    published_date: null
+    published_url_fr: null
+    published_url_en: null
+    error: null
