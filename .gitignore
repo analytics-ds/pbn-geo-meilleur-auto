@@ -16,3 +16,6 @@ AGENTS.md
 CLAUDE.md
 publications.json
 roadmap-source-como.yaml
+
+# Artefacts de mise en place de la routine, pas de code du site.
+.routine/
