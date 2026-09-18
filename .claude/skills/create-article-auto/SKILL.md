@@ -49,6 +49,42 @@ Le seul critere d'eligibilite est defini a l'Etape 0 : `status == todo` et `sche
 | Analyse concurrents | Manuelle ou absente | Automatique via `WebSearch` (titres + snippets), sans SerpAPI |
 | Validation | Humaine a chaque etape | Aucune |
 
+## Contexte du site (a lire avant tout, il ne vit nulle part ailleurs)
+
+**Le `CLAUDE.md` et l'`AGENTS.md` de ce blog ne sont PAS dans le depot** : ils restent en
+local chez les consultants. Dans le sandbox de la routine, ils n'existent pas. Tout ce dont
+l'agent a besoin est donc inline ici, et **toute mention de `CLAUDE.md` plus bas dans ce
+fichier doit se lire comme un renvoi a cette section**.
+
+- **Le media** : Meilleur Choix Auto, https://meilleur-choix-auto.com/, media automobile
+  editorial bilingue FR + EN. Ce n'est **pas** un site de vente : pas de parcours d'achat,
+  pas de CTA commercial, pas de promesse d'essai realise.
+- **Ligne editoriale** : modeles et comparatifs, occasion, electrique et hybride, vie
+  automobile, economie du secteur, reseaux et distribution.
+- **Ton** : impersonnel, pas de tutoiement, pas de "nous". Factuel. Toute donnee chiffree
+  est sourcee. **Aucune affirmation d'essai realise, de classement verifie ou d'expertise
+  personnelle** : la signature est collective et le media ne roule pas les voitures.
+- **Auteur** : toujours `redaction-meilleur-choix-auto`, c'est la seule signature du site.
+  Ne pas chercher a en selectionner une autre, `data/authors.yaml` n'en porte qu'une.
+- **Langues** : FR dans `content/fr/`, EN dans `content/en/`, appairees par `translationKey`.
+- **Mentions d'editeur** : les pages editoriales du site (`/a-propos/`, `/notre-methode/`
+  et leurs versions EN) portent une declaration d'editeur assumee. **Elle vit UNIQUEMENT
+  sur ces pages et elle a ete redigee a la main.** Un article, lui, ne nomme jamais
+  d'agence ni d'annonceur, ni en texte ni en lien. Ne jamais toucher aux pages
+  editoriales ni a cette declaration.
+- **Categories** : reprendre telle quelle la valeur `category` de l'entree de roadmap pour
+  le FR. Les pages de rubrique la reconnaissent par leurs `categoryKeys`, accentuee ou non.
+  Pour l'EN, utiliser l'equivalent de cette table, et rien d'autre :
+
+  | Roadmap (FR) | EN |
+  |---|---|
+  | Modeles et comparatifs | Models and comparisons |
+  | Financement | Financing |
+  | Electrique | Electric and hybrid |
+  | Occasion | Used cars |
+  | Concessionnaires | Dealerships |
+  | Conseils pratiques | Maintenance |
+
 ## Etape 0 — Selection de l'entree roadmap
 
 1. `cd` vers la racine du blog (la skill est lancee depuis ce contexte).
@@ -66,32 +102,148 @@ Le seul critere d'eligibilite est defini a l'Etape 0 : `status == todo` et `sche
 
 L'entree selectionnee fournit : `kw`, `category`, `scheduled_date`.
 
-## Etape 1 — Analyse du sujet via WebSearch (sans SerpAPI)
+## Etape 1 — Analyse semantique via Datafer (repli CrazySERP puis WebSearch)
 
-Cette skill **n'utilise plus SerpAPI**. L'analyse du paysage concurrentiel se fait avec l'outil natif `WebSearch`, execute cote serveur Anthropic (donc non soumis au proxy d'egress reseau du sandbox cloud). Aucune cle API, aucun curl externe.
+L'analyse du paysage concurrentiel passe par l'**API Datafer**, l'outil semantique interne de datashake. Un brief Datafer donne ce que l'appel SERP seul ne donnait pas : les **structures Hn completes du top 10**, le **contenu redige** de chaque concurrent, les **termes NLP ponderes** avec leur taux de presence, les **clusters semantiques**, les **sections recurrentes de la SERP**, les **entites nommees**, le **nombre de mots cible** calcule sur les concurrents reels, les **PAA**, et un **score /100** qui permet de mesurer l'article produit avant de le publier.
 
-### 1.1 Recherche WebSearch
+**Datafer est la source nominale depuis le 2026-09-01.** CrazySERP reste branche pour deux usages precis : le **check AI Overview** (Datafer ne l'expose pas) et le **repli** si Datafer echoue.
 
-1. Lancer un `WebSearch` sur le `kw` de la roadmap (formule en francais).
-2. Optionnel selon le sujet : 1 a 2 recherches complementaires pour elargir le champ, par exemple `"<kw> avis"`, `"comparatif <kw>"`, `"meilleur <kw>"` ou `"<kw> guide"`. Se limiter a 3 WebSearch maximum par article.
-3. Recuperer de chaque resultat : **titre, URL, extrait (snippet)**. Ce sont les seules donnees exploitees.
+Les deux cles sont fournies dans le prompt de la routine (`DATAFER_API_KEY` et `CRAZYSERP_API_KEY`) et **ne doivent jamais etre ecrites dans le repo** : les repos du reseau sont publics. Si le prompt n'en fournit qu'une, la cascade de repli (1.5) s'adapte toute seule et l'article sort quand meme.
 
-**Repli si WebSearch est indisponible dans l'environnement** : NE PAS marquer `failed`. Continuer en **mode degrade** : l'analyse se fait uniquement a partir du `kw`, de la `category` et du contexte editorial du blog (CLAUDE.md). L'article est quand meme produit et publie. Noter "WebSearch indispo, mode degrade" dans le log.
+### 1.1 Verifier la cle, puis creer le brief Datafer
 
-### 1.2 Ne pas ouvrir les pages concurrentes
+**Premier reflexe : la cle est-elle la ?**
 
-Ne **PAS** utiliser `WebFetch` sur les URLs concurrentes : dans le sandbox cloud les domaines commerciaux sont bloques par la politique reseau (403/503). L'analyse se fait uniquement sur les **titres et snippets** renvoyes par `WebSearch`.
+```bash
+if [ -z "$DATAFER_API_KEY" ]; then
+  echo "DATAFER_API_KEY absente, mode crazyserp"   # voir 1.5, cas 0
+fi
+```
 
-### 1.3 Synthese auto (aucun output humain, juste des variables internes)
+Si elle est absente ou vide, **ne pas tenter Datafer du tout** : passer directement au mode `crazyserp` (1.5, cas 0). Ce n'est jamais un motif d'echec. **Au 2026-09-07, les 14 routines du parc portent toutes la cle** : si un run tombe malgre tout dans ce cas 0, ce n'est plus une situation normale mais le signe que son prompt a ete modifie ou restaure depuis, a signaler.
 
-L'agent determine a partir des resultats WebSearch (ou du `kw` seul en mode degrade) :
-- **Intention de recherche** : inferee du pattern recurrent des titres du top des resultats (informationnelle, transactionnelle, comparative, etc.)
-- **Angles concurrents** : sous-themes qui reviennent dans les titres et snippets (ex: prix, comparatif, avis, guide, duree de vie...)
-- **Champ semantique** : mots recurrents dans les titres et snippets
-- **FAQ pertinente ?** : vrai si les resultats font ressortir des questions recurrentes (formulations interrogatives dans les titres/snippets, "comment", "pourquoi", "quel", "combien"...). En mode degrade : juger selon la nature du sujet.
-- **Longueur cible** : 1500-2000 mots par defaut (cible raisonnable pour un article evergreen qualitatif)
-- **Tableau pertinent ?** : vrai par defaut pour les requetes a intention comparative (mots "meilleur", "top", "vs", "ou", "comparatif" dans le kw ou les titres), false sinon
-- **Si FAQ pertinente** : construire 4-6 questions a partir des themes/questions vus dans les resultats, retirer les doublons, reformuler (pas de copie mot pour mot)
+```bash
+export BASE="https://corpus.datashake.fr"
+curl -s -w '\nHTTP=%{http_code}\n' --max-time 120 -X POST "$BASE/api/v1/briefs" \
+  -H "Authorization: Bearer $DATAFER_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{"keyword":"<kw>","country":"fr"}'
+```
+
+Recuperer le champ `.id` de la reponse. `jq` n'est pas toujours present dans le sandbox : faire l'extraction en `python3` en cas d'absence.
+
+**Ne JAMAIS appeler Datafer avec `urllib` de Python.** Cloudflare rejette la signature `Python-urllib` en **403 `error code: 1010`**, et ce n'est ni la cle ni l'egress. Tout passe par `curl` (mesure du 2026-09-01 : le meme appel echoue en urllib et repond 200 en curl).
+
+### 1.2 Poller jusqu'a `ready`
+
+```bash
+for i in $(seq 1 48); do
+  STATUS=$(curl -s --max-time 30 "$BASE/api/v1/briefs/$ID" \
+    -H "Authorization: Bearer $DATAFER_API_KEY" \
+    | python3 -c 'import json,sys;print(json.load(sys.stdin).get("status",""))')
+  [ "$STATUS" = "ready" ] && break
+  [ "$STATUS" = "failed" ] && break
+  sleep 5
+done
+```
+
+- **Timeout 240 s, pas 90 s.** Mesures du 2026-09-01 : 31 s depuis le sandbox cloud, 89 s depuis un Mac sur un mot-cle jamais analyse. La doc annonce 20 a 60 s, c'est optimiste.
+- Les endpoints v2 renvoient **409** tant que le brief est `pending` : ne jamais les appeler avant `ready`.
+- `status: failed` cote Datafer signifie que son analyse SERP initiale a echoue : basculer sur le repli (1.5) sans insister.
+
+### 1.3 Rapatrier les 4 endpoints v2
+
+Une fois `ready`, quatre appels, tous sous la seconde (mesure du 2026-09-01) :
+
+```bash
+for EP in "" "/competitors" "/nlp" "/paa"; do
+  curl -s --max-time 60 "$BASE/api/v2/briefs/$ID$EP" \
+    -H "Authorization: Bearer $DATAFER_API_KEY" \
+    -o "/tmp/datafer$(echo "$EP" | tr -d '/' | sed 's/^$/brief/').json"
+done
+```
+
+Ce qu'on garde de chacun :
+
+| Endpoint | Ce qu'on en tire | Sert a |
+|---|---|---|
+| `/api/v2/briefs/{id}` | `intent`, `targetWordCount`, `minWordCount`, `maxWordCount`, `avgHeadings`, `avgParagraphs`, `competitors.avg`, `competitors.best` | longueur cible (etape 7), nombre de Hn (etape 3), barre a battre (etape 8bis) |
+| `/competitors` | par concurrent : `position`, `title`, `link`, `wordCount`, `headings`, `h1`, `h2`, `h3`, `outline`, `score`, `hasContent` | structure Hn (etape 3), angles reellement traites |
+| `/nlp` | `nlpTerms`, `semanticClusters`, `sections`, `entities`, `opportunities`, `stats` | couverture semantique (etape 7), regroupement des H2, differenciation |
+| `/paa` | `paa` (question, snippet) | FAQ (etape 3 et 7) |
+
+**Formes reelles a connaitre, la doc `doc-datafer-api` etait fausse sur deux champs** (verifie le 2026-09-01) :
+
+- `sections` : `{label, hits, total, sampleHeadings, keyTerms}` et **pas** `{title, frequency}`. `hits` sur `total` est le nombre de concurrents qui traitent ce sujet, c'est le signal le plus utile de tout le brief.
+- `entities` : `{label, hits, total, totalOccurrences}` et **pas** `{name, type, frequency}`.
+- `opportunities` peut etre une **liste vide**, c'est frequent. Ne jamais faire dependre une etape de sa presence.
+- `sections` et `entities` varient enormement d'un mot-cle a l'autre (mesure : 12 sections et 10 entites sur un mot-cle SIRH, 1 section et 2 entites sur un mot-cle mode). Un compteur bas n'est pas une panne, c'est une SERP pauvre : continuer avec ce qu'il y a.
+- `volume` (issu de Haloscan) est souvent absent ou absurde (9 sur un mot-cle a fort trafic). **Purement informatif, il ne conditionne rien.**
+
+### 1.4 Check AI Overview via CrazySERP (1 credit, non bloquant)
+
+Datafer n'expose pas l'AI Overview. Un appel CrazySERP la donne, et c'est une regle transverse datashake sur tout brief et toute redaction.
+
+```bash
+curl -s --max-time 240 -G "https://crazyserp.com/api/search" \
+  --data-urlencode "q=<kw>" \
+  --data-urlencode "gl=fr" \
+  --data-urlencode "hl=fr" \
+  --data-urlencode "location=France" \
+  --data-urlencode "page=1" \
+  -H "Authorization: Bearer $CRAZYSERP_API_KEY" \
+  -o /tmp/serp.json
+```
+
+- Lire `stats.has_ai_overview` **en priorite**, avec repli sur `parsed_data.has_ai_overview` : le champ existe aux deux endroits, et le lire seulement dans `parsed_data` a deja renvoye `None` a tort.
+- Si `true`, lire `parsed_data.ai_overview.content` : les sous-questions traitees indiquent ce que Google considere comme le noyau du sujet, les couvrir explicitement dans la structure Hn. **Ne jamais recopier le texte de l'AIO.**
+- Noter dans le log `AIO : Declenchee` ou `AIO : Non declenchee`.
+- **Cet appel n'est jamais bloquant.** S'il echoue, noter `AIO : non verifiee` et continuer. La reponse sert aussi de repli SERP gratuit si Datafer est tombe (1.5).
+- `--max-time 240` est obligatoire, `location=France` et rien d'autre (`Paris,France` resout silencieusement vers `Paris,Ontario,Canada`), pas de `tbm` (0 resultat et 1 credit debite quand meme).
+
+### 1.5 Repli en cascade (ne jamais echouer sur cette etape)
+
+**Datafer et CrazySERP sont tous les deux verifies fonctionnels depuis l'environnement cloud du reseau** (mesure du 2026-09-01 depuis `env_01WaB3uJJef85yE35Ha5rLdN` : Datafer creation 200 en 2,7 s, `ready` en 31 s, les 4 endpoints v2 en 200 ; CrazySERP 200 en 2,7 s, AIO detectee, 1 credit).
+
+Bascule **des le premier echec, sans insister ni retenter** :
+
+0. **`DATAFER_API_KEY` absente ou vide** : ne pas appeler Datafer, passer directement en mode `crazyserp` et loguer `DATAFER_API_KEY absente, mode crazyserp`. **Cas a connaitre** : les routines du parc mises en pause portent encore un prompt CrazySERP seul, donc une routine simplement reactivee par `{"enabled": true}` tourne sans cle Datafer. Le run publie quand meme, proprement, en mode degrade d'un cran. Pour recuperer le mode `datafer`, il faut patcher son prompt, ce que fait la skill `geo-pbn-routine-setup`.
+1. **Datafer repond** : cas nominal, mode `datafer`.
+2. **Datafer en erreur** (creation non-200, `status: failed`, timeout de polling, 409 persistant) : passer en mode `crazyserp` et travailler sur l'appel de 1.4, qui est deja fait. On perd les structures Hn concurrentes, les termes NLP et le nombre de mots cible ; on garde organiques, PAA, recherches associees et AIO. Loguer `DATAFER indisponible, repli crazyserp` et le signaler dans le message de commit.
+3. **Datafer et CrazySERP tous les deux injoignables** : mode `websearch`, 3 recherches maximum sur le `kw`, titres et snippets uniquement.
+4. **WebSearch aussi indisponible** : mode `degrade`, analyse a partir du seul `kw`, de la `category` et du contexte editorial du `CLAUDE.md`. **Publier quand meme.**
+
+Cas particuliers a loguer explicitement, sans changer de mode :
+- CrazySERP **402** (credits epuises) : loguer `CRAZYSERP 402 credits epuises`, l'AIO passe en `non verifiee`, Datafer continue normalement.
+- Datafer **401** : cle revoquee, loguer `DATAFER 401 cle invalide` et passer en repli.
+- Datafer **403 `error code: 1010`** : c'est un appel parti en urllib, pas une panne. Refaire en curl.
+
+**L'indisponibilite des sources n'est JAMAIS un motif d'echec de la skill.** Noter dans le log et dans la ligne ajoutee a `MEMORY.md` le mode reellement utilise : `datafer`, `crazyserp`, `websearch` ou `degrade`.
+
+### 1.6 Ne pas ouvrir les pages concurrentes
+
+Ne **PAS** utiliser `WebFetch` sur les URLs concurrentes : dans le sandbox cloud les domaines commerciaux sont bloques par la politique reseau (403/503). **C'est desormais inutile** : Datafer a deja crawle le top 10 et rend le contenu par `/competitors/{n}` (champs `text` et `structuredHtml`) pour les concurrents dont `hasContent` est `true`. Appeler cet endpoint sur les 2 ou 3 meilleurs scores quand la structure demande a etre precisee, jamais sur les 10.
+
+En repli `crazyserp`, `websearch` ou `degrade`, l'analyse se fait uniquement sur les titres, descriptions, PAA et AI Overview.
+
+### 1.7 Synthese auto (aucun output humain, juste des variables internes)
+
+L'agent determine :
+
+- **Intention de recherche** : `intent` du brief Datafer (`informational`, `commercial`, `transactional`, `navigational`). En repli, inferee du pattern recurrent des titres du top 10.
+- **Sujets a couvrir obligatoirement** : les `sections` dont `hits / total >= 0,5`, c'est-a-dire les sujets traites par au moins la moitie du top 10. `sampleHeadings` donne la formulation reelle des concurrents, a reformuler et jamais a recopier.
+- **Angles de differenciation** : les `opportunities` (questions PAA peu couvertes) si la liste n'est pas vide, plus les `sections` a `hits` faible qui restent pertinentes pour le sujet, plus l'angle editorial propre au blog.
+- **Champ semantique** : les `nlpTerms` tries par `score` decroissant. Retenir ceux dont `presence >= 50` (present chez au moins la moitie des concurrents). **Nettoyer la liste** : les `nlpTerms` remontent regulierement des noms de marques concurrentes et du bruit de listing (mesure du 2026-09-01 : `jouroff` en 8e position sur un mot-cle SIRH). Ne jamais placer une marque concurrente dans un Hn.
+- **Termes a placer dans les Hn** : ceux dont `inHeadings` est `true`, ce sont ceux que les concurrents mettent eux-memes en titre.
+- **Regroupement des H2** : les `semanticClusters` (`label` + `terms`) donnent des familles de sujets pretes a devenir des H2.
+- **Entites a mentionner** : les `entities` a `hits` eleve, en excluant les marques concurrentes directes du blog.
+- **FAQ pertinente ?** : construire 4 a 6 questions a partir des `paa`, **toujours reformulees**, jamais copiees mot pour mot. Completer avec les `opportunities` si besoin. S'il y a moins de 4 PAA, completer avec les `related` de l'appel CrazySERP transformees en questions. En repli `websearch` ou `degrade`, juger selon la nature du sujet.
+- **Longueur cible** : `targetWordCount` du brief, borne par `minWordCount` et `maxWordCount`. Detail et garde-fous a l'etape 7.
+- **Nombre de Hn cible** : `avgHeadings` du brief, borne entre 6 et 14.
+- **Tableau pertinent ?** : vrai si le `kw` ou les titres du top contiennent "meilleur", "top", "vs", "ou", "comparatif", "prix", "tarif", ou si `intent` vaut `commercial`. Faux sinon.
+- **Barre de score a battre** : `competitors.avg` et `competitors.best` du brief. Sert a l'etape 8bis.
+- **Volume de recherche** : informatif, ne change pas la decision de publier.
+- **AI Overview** : voir 1.4.
 
 ## Etape 2 — Title et meta description (regles pixel inline)
 
@@ -99,9 +251,18 @@ Pas d'appel aux skills `/tech-title` ni `/tech-meta-description`. Regles appliqu
 
 ### Title
 - Contient le `kw` en premier tiers de la balise si possible
-- Max 60 caracteres (proxy safe pour 580px en Arial SERP Google)
-- Format cible : `[Kw] : [angle] | [Nom du site]`
-- Le nom du site vient du `hugo.toml` (`title` global)
+- Format du frontmatter : `[Kw] : [angle]`, **SANS le nom du site**
+- ⚠️ **Ne jamais ecrire ` | Meilleur Choix Auto` dans le `title` du frontmatter.**
+  Le theme l'ajoute deja : `layouts/partials/title.html` rend
+  `{{ .Title }} | {{ .Site.Title }}`. Un suffixe ecrit a la main sort donc
+  **deux fois** dans la balise, et comme le H1 de `single.html` affiche `.Title`,
+  le nom du site atterrit aussi **dans le H1**. Defaut deja constate sur
+  deux autres blogs du reseau, sur 16 articles et sur 4 pages.
+- **Budget de 60 caracteres sur le title RENDU**, suffixe compris : le theme
+  ajoute ` | Meilleur Choix Auto`, soit 22 caracteres. Le `title` du frontmatter
+  doit donc tenir en **38 caracteres**.
+- Pour un titre long, utiliser `seoTitle` dans le frontmatter : le partial le
+  prend tel quel, sans rien ajouter.
 - **Une seule option, choix direct** (pas de 3 options comme en interactif)
 
 ### Meta description
@@ -179,30 +340,51 @@ Si le blog a moins de 3 articles FR publies : faire au mieux avec ce qui existe 
 
 Produire le fichier `content/fr/blog/[slug-fr].md`.
 
-**Ce site a un `contentDir` par langue** (`content/fr` et `content/en`, declares dans `hugo.toml`). Un article ecrit hors de ces deux racines n'appartient a aucune langue : Hugo l'ignore, le build reste vert et l'article part en 404.
-
 ### Frontmatter
-```yaml
----
-title: "[Title]"
-translationKey: "[slug-generique-identique-FR-et-EN]"
-date: "[YYYY-MM-DD]"
-lastmod: "[YYYY-MM-DD]"
-description: "[Meta description <= 155 car]"
-categories: ["[Categorie FR]"]
-tags: ["tag1", "tag2", "tag3", "tag4", "tag5"]
-author: "[id-slug]"
-image: "/images/blog/[slug].webp"
-imageAlt: "[Description FR, max 125 car]"
-imageCredit: "[Credit retourne par fetch-image.sh]"
-faq:  # UNIQUEMENT si FAQ pertinente (voir etape 1.3)
-  - question: "[Q1]"
-    answer: "[R1, 3-5 phrases]"
-  - question: "[Q2]"
-    answer: "[R2, 2-4 phrases]"
-readingTime: true
----
+
+**Ce blog ecrit son frontmatter en JSON, pas en YAML.** Hugo le prend nativement. Reprendre
+exactement la forme des articles deja en ligne (`content/fr/blog/zeekr.md` fait foi) :
+
+```json
+{
+  "title": "[Title, SANS le nom du site, 38 caracteres max]",
+  "seoTitle": "[uniquement si le title rendu depasserait 60 car ; sinon repeter le title]",
+  "description": "[Meta description, 155 caracteres max]",
+  "translationKey": "[slug generique, IDENTIQUE en FR et EN]",
+  "date": "[YYYY-MM-DDT00:00:00+02:00]",
+  "lastmod": "[idem]",
+  "publishDate": "[idem]",
+  "draft": false,
+  "categories": ["[valeur category de la roadmap, telle quelle]"],
+  "tags": ["tag1", "tag2", "tag3"],
+  "author": "redaction-meilleur-choix-auto",
+  "image": "images/blog/[slug].webp",
+  "imageAlt": "[Description FR, 125 caracteres max]",
+  "sources": [
+    { "title": "[Nom de la source]", "url": "[URL]", "date": "[JJ/MM/AAAA de consultation]" }
+  ],
+  "faq": [
+    { "question": "[Q1]", "answer": "[R1, 3 a 5 phrases]" }
+  ],
+  "imageCredit": "[credit rendu par fetch-image.sh]",
+  "imageSource": "[URL de la page source]",
+  "imageLicense": "[licence]",
+  "imageLicenseURL": "[URL de la licence]",
+  "imageCaption": "[legende factuelle]",
+  "imageChanges": "[transformations appliquees]"
+}
 ```
+
+Trois points qui ne se devinent pas :
+
+- **`image` n'a PAS de slash initial** sur ce blog (`images/blog/x.webp`), contrairement au
+  gabarit du reseau. Un chemin absolu casse le rendu.
+- **`sources` est obligatoire** des qu'un chiffre ou une affirmation technique est avance.
+  Le gabarit d'article les affiche en fin de page.
+- **Les six champs `image*` de licence** sont repris de ce que rend `fetch-image.sh`. Ils
+  alimentent la page Credits photos, liee depuis le pied de page. Une photo sous licence
+  Creative Commons sans ses champs de licence est une faute, pas un detail. **Aucune
+  legende ne s'affiche sous la banniere** : c'est voulu, ne pas en ajouter dans le body.
 
 ### Body
 - Premier paragraphe : contient le `kw` naturellement, pose le contexte.
@@ -217,6 +399,50 @@ readingTime: true
 - Paragraphes aeres, 3-5 phrases max.
 - Pas de separateur horizontal (`---`). Pas de tiret cadratin (—) ni demi-cadratin (–).
 - Si FAQ pertinente : dernier H2 "Questions frequentes" avec `<details><summary>` accordeon. Les Q/R du body correspondent strictement a celles du frontmatter.
+
+## Etape 7bis — Controle de score Datafer (non bloquant, une seule passe)
+
+Uniquement si le mode retenu a l'etape 1.5 est `datafer`. Dans les autres modes, sauter cette etape.
+
+Le brief cree a l'etape 1 sait scorer un contenu sur les memes criteres que les concurrents. On mesure l'article **avant** de le traduire et de le publier, pour corriger une fois si besoin.
+
+### 7bis.1 Soumettre le contenu
+
+`POST /api/v1/briefs/{id}/content` n'accepte que `<h1>`, `<h2>`, `<h3>` et `<p>`. Convertir le body FR : le `title` du frontmatter devient le `<h1>`, les `##` et `###` deviennent `<h2>` et `<h3>`, chaque paragraphe devient un `<p>`. Les tableaux, les listes et les accordeons `<details>` sont aplatis en `<p>`, les questions de FAQ en `<h3>` suivies de leur reponse en `<p>`. Les liens sont conserves en texte.
+
+```bash
+python3 - <<'PY' > /tmp/editor.json
+# construire {"editorHtml": "..."} depuis content/fr/blog/<slug>.md
+PY
+curl -s --max-time 120 -X POST "$BASE/api/v1/briefs/$ID/content" \
+  -H "Authorization: Bearer $DATAFER_API_KEY" \
+  -H 'Content-Type: application/json' \
+  --data @/tmp/editor.json
+```
+
+### 7bis.2 Lire le verdict
+
+De la reponse, retenir `total`, `seoTotal`, `geoTotal`, le `breakdown` par critere (`keyword`, `nlpCoverage`, `contentLength`, `headings`, `placement`, `structure`, `quality`, `geo`) et `competitors.avg` / `competitors.best`.
+
+**La barre est `competitors.avg`.** Un article du reseau qui sort en dessous de la moyenne du top 10 n'a pas de raison de passer devant.
+
+### 7bis.3 Une passe d'enrichissement, jamais deux
+
+Si `total >= competitors.avg` : ne rien changer, loguer le score, passer a l'etape 8.
+
+Si `total < competitors.avg` : prendre les **deux criteres du `breakdown` les plus loin de leur `max`** et corriger uniquement ceux-la, dans le contenu existant, sans casser la structure validee a l'etape 3 :
+
+- `nlpCoverage` faible : placer naturellement les `nlpTerms` a `presence >= 50` encore absents, en priorite ceux dont `inHeadings` est `true`. Jamais de bourrage, jamais une marque concurrente.
+- `contentLength` faible : etoffer les sections les plus courtes jusqu'a atteindre `minWordCount` au minimum, en apportant du fond, pas du remplissage.
+- `headings` faible : ajouter un H2 ou un H3 sur une `section` a fort `hits` non encore couverte.
+- `structure` ou `placement` faible : replacer le `kw` dans le premier paragraphe et dans un H2, aerer les paragraphes trop longs.
+- `quality` faible : casser les phrases trop longues, retirer les formulations creuses.
+
+Puis **rescorer une seule fois** et loguer les deux scores. **On s'arrete la, quel que soit le second score.** Pas de troisieme passe : la routine a un creneau de publication a tenir, et un article legerement sous la moyenne publie vaut mieux qu'une boucle d'optimisation qui mange le run.
+
+### 7bis.4 Ne jamais echouer sur cette etape
+
+Un `409`, un `400 editorHtml required`, un timeout ou une reponse illisible se loguent en `SCORE : non mesure` et n'empechent ni la traduction ni la publication. Cette etape est un controle qualite, pas une condition de publication.
 
 ## Etape 8 — Redaction EN (traduction directe)
 
@@ -246,29 +472,21 @@ Si le telechargement echoue (reseau), utiliser le `hugo` deja present, mais NE P
 ### 9.1 Build
 
 ```bash
-hugo --gc --minify
+hugo
 ```
 
 - Si exit code non-zero : marquer `failed` avec log de l'erreur, abort.
 - Si OK : noter le nombre de pages generees.
 
-### 9.2 Garde-fou : verifier que les pages existent VRAIMENT
-
-**Obligatoire, et non negociable.** Un `hugo` qui sort en 0 ne prouve pas que l'article a ete
-rendu : un fichier depose dans un chemin qui n'appartient a aucune langue est ignore
-silencieusement, le build reste vert et l'article part en 404.
+### 9.2 Verifier que les deux pages sont reellement dans le build
 
 ```bash
 ls public/blog/[slug-fr]/index.html public/en/blog/[slug-en]/index.html
 ```
 
-- Si l'une des deux pages manque : marquer l'entree `failed` avec l'erreur
-  `build: page absente de public/`, **meme si `hugo` a rendu 0**, supprimer les fichiers
-  d'article ecrits, committer le seul `roadmap.yaml` et sortir en non-zero.
-- Controler aussi que la page porte bien `index, follow` :
-  `grep -o 'name="robots"[^>]*' public/blog/[slug-fr]/index.html`. Un `noindex` signifie que
-  le garde-fou de lancement s'est rabaisse (`launchApproved` ou `productionHost` touches) :
-  c'est un `failed`, pas un detail.
+Ce controle n'est pas cosmetique. Un article ecrit hors du `contentDir` de sa langue **n'est pas construit par Hugo, sans provoquer la moindre erreur de build** : `hugo` rend 0 et l'article est en 404 en production. C'est deja arrive sur le reseau et ca a mis plusieurs jours a etre vu.
+
+Si un des deux fichiers manque, marquer `failed` avec l'erreur "page absente du build" **meme si `hugo` a rendu 0**, et verifier en priorite le chemin d'ecriture du fichier de contenu.
 
 ## Etape 10 — Update roadmap et MEMORY.md
 
@@ -292,27 +510,28 @@ Le suffixe `auto` distingue les articles generes par cette skill des articles pr
 
 ## Etape 11 — Commit et push
 
-**Avant tout commit, verifier qu'on est sur une branche.** Le sandbox rend parfois le depot en
-HEAD detache : les commits ne partent sur aucune branche, `git push origin main` repond
+**Avant tout commit, verifier qu'on est sur une branche.** Le sandbox rend parfois le depot
+en HEAD detache : les commits ne partent sur aucune branche, `git push origin main` repond
 `Everything up-to-date` et le run sort en succes **sans rien publier**.
 
 ```bash
-git status --short --branch     # doit afficher '## main...origin/main', pas '## HEAD (no branch)'
-git checkout main               # si HEAD detache
+git status --short --branch     # doit afficher '## main...origin/main'
+git checkout main               # si '## HEAD (no branch)'
 ```
+
+Et apres le push, **prouver que le commit est sur le remote** :
+
+```bash
+git log origin/main --oneline -1   # doit etre le commit qu'on vient de faire
+```
+
+Un push qui repond `Everything up-to-date` n'est pas une publication.
 
 ```bash
 git add -A
 git commit -m "Auto: publication evergreen - [Titre FR]"
 git pull --rebase origin main
 git push origin main
-```
-
-Puis **prouver que le commit est bien sur le remote**, un push qui repond
-`Everything up-to-date` n'est pas une publication :
-
-```bash
-git log origin/main --oneline -1   # doit etre le commit qu'on vient de faire
 ```
 
 En cas de rejet du push apres rebase : retenter jusqu'a 3 fois (pull --rebase + push). Si toujours KO au bout de 3 tentatives : marquer failed avec erreur "push rejected 3x", commit du roadmap local, exit non-zero.
