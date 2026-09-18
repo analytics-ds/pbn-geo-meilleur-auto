@@ -5,7 +5,10 @@
 <link rel="canonical" href="{{ $pageURL }}">
 {{ if eq $pageNumber 1 }}{{ range .AllTranslations }}<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">{{ end }}
 {{ range .AllTranslations }}{{ if eq .Lang "fr" }}<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">{{ end }}{{ end }}{{ end }}
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="any">
 <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 {{ $desc := .Description | default .Site.Params.description }}
 {{ $article := and .IsPage (eq .Section "blog") }}
 {{ $image := .Params.image | default .Site.Params.default_og_image }}
