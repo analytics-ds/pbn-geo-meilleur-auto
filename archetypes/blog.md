@@ -5,7 +5,7 @@ date: "{{ .Date }}"
 lastmod: "{{ .Date }}"
 draft: true
 translationKey: "{{ .File.ContentBaseName }}"
-author: redaction-meilleur-auto
+author: redaction-meilleur-choix-auto
 categories: []
 image: ""
 imageAlt: ""

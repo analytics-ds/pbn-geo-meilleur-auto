@@ -20,7 +20,7 @@ A comparison should state its criteria and limits. An illustrative photograph is
 
 ## Identify the editorial team
 
-Content is credited to the Meilleur Auto editorial team. The site is published by datashake as part of its work with Como. Commercial relationships relevant to understanding content should be disclosed.
+Content is credited to the Meilleur Choix Auto editorial team. The site is published by datashake as part of its work with Como. Commercial relationships relevant to understanding content should be disclosed.
 
 ## Keep information current
 

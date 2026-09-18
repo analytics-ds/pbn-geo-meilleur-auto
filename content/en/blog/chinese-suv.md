@@ -15,7 +15,7 @@
     "Zeekr",
     "motoring"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/suv-chinois.webp",
   "imageAlt": "Interior of a Geely EX5 displayed in 2024, an international-market illustration.",
   "sources": [

@@ -15,7 +15,7 @@
     "Zeekr",
     "motoring"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/geely-voiture-prix.webp",
   "imageAlt": "Electric vehicles charging, illustrative photograph.",
   "sources": [

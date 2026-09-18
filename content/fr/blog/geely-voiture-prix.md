@@ -15,7 +15,7 @@
     "Zeekr",
     "automobile"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/geely-voiture-prix.webp",
   "imageAlt": "Véhicules électriques à la recharge, photographie d’illustration.",
   "sources": [

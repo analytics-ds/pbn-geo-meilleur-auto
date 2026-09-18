@@ -1,6 +1,6 @@
 {
   "title": "Crédits photos",
-  "description": "Sources, auteurs et licences des photographies de Meilleur Auto.",
+  "description": "Sources, auteurs et licences des photographies de Meilleur Choix Auto.",
   "translationKey": "photo-credits",
   "layout": "photo-credits",
   "draft": false

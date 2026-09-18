@@ -1,7 +1,7 @@
 # Visuels
 
 - static/images/route-alpine.jpg : photographie de Paul Steiner, Unsplash, https://unsplash.com/photos/MBBi_esPx3g (photo gratuite, source vérifiée le 2026-09-14). Téléchargement web à 1 600 px depuis https://images.unsplash.com/photo-1650585313140-36f77de7367c?auto=format&fit=crop&w=1600&q=85. Illustration, pas un essai réalisé par la rédaction. Crédit public en pied de page. La photo ne représente pas un véhicule du stock Como.
-- static/favicon.svg : monogramme géométrique créé pour le nom de travail Meilleur Auto.
+- static/favicon.svg : monogramme géométrique créé pour Meilleur Choix Auto.
 
 ## Illustrations des articles, 15 septembre 2026
 

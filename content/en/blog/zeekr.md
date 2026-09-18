@@ -15,7 +15,7 @@
     "Zeekr",
     "motoring"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/zeekr.webp",
   "imageAlt": "Zeekr 001 photographed in 2022; pictured version differs from the current French catalogue.",
   "sources": [

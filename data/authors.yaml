@@ -1,5 +1,5 @@
-redaction-meilleur-auto:
-  name: "La rédaction Meilleur Auto"
+redaction-meilleur-choix-auto:
+  name: "La rédaction Meilleur Choix Auto"
   type: "organization"
   role:
     fr: "Rédaction automobile"

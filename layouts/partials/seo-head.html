@@ -29,7 +29,7 @@
 {{ if $article }}
 <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
 <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
-<meta name="author" content="{{ if $en }}Meilleur Auto editorial team{{ else }}La rédaction Meilleur Auto{{ end }}">
+<meta name="author" content="{{ if $en }}Meilleur Choix Auto editorial team{{ else }}La rédaction Meilleur Choix Auto{{ end }}">
 {{ range .Params.categories }}<meta property="article:section" content="{{ . }}">{{ end }}
 {{ range .Params.tags }}<meta property="article:tag" content="{{ . }}">{{ end }}
 {{ end }}
@@ -44,7 +44,7 @@
 {{ $graph := slice $publisher $website }}
 {{ if $article }}
 {{ $about := cond $en "en/authors/editorial-team/" "auteurs/la-redaction/" }}
-{{ $author := dict "@type" "Organization" "@id" $authorID "name" (cond $en "Meilleur Auto editorial team" "La rédaction Meilleur Auto") "url" ($about | absURL) "parentOrganization" (dict "@id" $publisherID) }}
+{{ $author := dict "@type" "Organization" "@id" $authorID "name" (cond $en "Meilleur Choix Auto editorial team" "La rédaction Meilleur Choix Auto") "url" ($about | absURL) "parentOrganization" (dict "@id" $publisherID) }}
 {{ $graph = $graph | append $author }}
 {{ $schema = merge $schema (dict "@type" "BlogPosting" "headline" .Title "image" ($image | absURL) "author" (dict "@id" $authorID) "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00") "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00") "wordCount" .WordCount "mainEntityOfPage" .Permalink) }}
 {{ end }}

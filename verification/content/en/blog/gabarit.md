@@ -4,7 +4,7 @@ description: "Document interne de contrôle du rendu, non destiné à la publica
 date: "2026-09-14"
 lastmod: "2026-09-14"
 translationKey: "gabarit-test"
-author: redaction-meilleur-auto
+author: redaction-meilleur-choix-auto
 categories: ["Achat"]
 image: "images/route-alpine.jpg"
 imageAlt: "Photographie automobile d’illustration"

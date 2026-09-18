@@ -15,7 +15,7 @@
     "Zeekr",
     "automobile"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/zeekr.webp",
   "imageAlt": "Zeekr 001 photographiée en 2022, version illustrée distincte du catalogue français actuel.",
   "sources": [

@@ -15,7 +15,7 @@
     "Zeekr",
     "automobile"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/concessionnaire-geely.webp",
   "imageAlt": "Showroom Geely Galaxy à Zhongshan en Chine, photographié en 2024.",
   "sources": [

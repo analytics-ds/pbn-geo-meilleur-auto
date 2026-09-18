@@ -15,7 +15,7 @@
     "Zeekr",
     "motoring"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/geely-coolray-prix.webp",
   "imageAlt": "2022 Geely Coolray 1.5T Comfort, model illustration.",
   "sources": [

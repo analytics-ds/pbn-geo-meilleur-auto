@@ -1,4 +1,4 @@
-# Meilleur Auto
+# Meilleur Choix Auto
 
 Média automobile bilingue français et anglais. Site statique Hugo 0.165.0, sans dépendance de thème externe.
 
@@ -26,9 +26,9 @@ Articles avec sources, sommaire, FAQ et signature éditoriale. Six rubriques, m�
 
 GitHub Pages est alimenté par `.github/workflows/hugo.yml` après chaque push sur `main`.
 
-Adresse provisoire : https://analytics-ds.github.io/pbn-geo-meilleur-auto/
+Adresse de production : https://meilleur-choix-auto.com/
 
-Le site conserve une consigne noindex jusqu’à la configuration de son domaine définitif. Les fichiers robots.txt, llms.txt, les sitemaps et les flux RSS sont générés par Hugo.
+Le site est indexable depuis le 18 septembre 2026. Le garde-fou de `layouts/partials/indexable.html` exige `launchApproved` et l’égalité du host de `baseURL` avec `productionHost` : un build fait ailleurs que sur le domaine de production repasse tout le site en noindex, ce qui est voulu. Les fichiers robots.txt, llms.txt, les sitemaps et les flux RSS sont générés par Hugo.
 
 ## Photographies
 

@@ -20,7 +20,7 @@ Un comparatif doit indiquer les critères retenus et ses limites. Une photograph
 
 ## Identifier la rédaction
 
-Les contenus sont signés par la rédaction Meilleur Auto. Le site est édité par datashake dans le cadre de son accompagnement de Como. Les relations commerciales utiles à la compréhension d’un contenu doivent être explicites.
+Les contenus sont signés par la rédaction Meilleur Choix Auto. Le site est édité par datashake dans le cadre de son accompagnement de Como. Les relations commerciales utiles à la compréhension d’un contenu doivent être explicites.
 
 ## Maintenir les informations
 

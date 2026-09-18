@@ -15,7 +15,7 @@
     "Zeekr",
     "automobile"
   ],
-  "author": "redaction-meilleur-auto",
+  "author": "redaction-meilleur-choix-auto",
   "image": "images/blog/suv-chinois.webp",
   "imageAlt": "Habitacle d’une Geely EX5 exposée en 2024, version internationale d’illustration.",
   "sources": [
