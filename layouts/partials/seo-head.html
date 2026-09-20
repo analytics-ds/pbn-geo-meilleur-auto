@@ -37,7 +37,7 @@
 {{ $publisherID := printf "%s#publisher" .Site.BaseURL }}
 {{ $siteID := printf "%s#website" .Site.Home.Permalink }}
 {{ $authorID := printf "%s#editorial-team" .Site.BaseURL }}
-{{ $publisher := dict "@type" "Organization" "@id" $publisherID "name" "datashake" }}
+{{ $publisher := dict "@type" "Organization" "@id" $publisherID "name" .Site.Title "url" .Site.Home.Permalink }}
 {{ $website := dict "@type" "WebSite" "@id" $siteID "name" .Site.Title "url" .Site.Home.Permalink "inLanguage" .Lang "publisher" (dict "@id" $publisherID) }}
 {{ $type := "WebPage" }}{{ if .IsSection }}{{ $type = "CollectionPage" }}{{ end }}
 {{ $schema := dict "@type" $type "@id" (printf "%s#webpage" $pageURL) "name" .Title "description" $desc "url" $pageURL "inLanguage" .Lang "isPartOf" (dict "@id" $siteID) "publisher" (dict "@id" $publisherID) }}

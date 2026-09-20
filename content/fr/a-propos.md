@@ -12,10 +12,6 @@ Meilleur Choix Auto est un média automobile en ligne. Modèles et comparatifs, 
 
 Le journal rassemble les articles publiés. Les rubriques permettent de parcourir les sujets, les archives de retrouver les publications dans le temps et les pages auteurs de consulter les contributions de chaque signature.
 
-## Qui édite le média ?
-
-Meilleur Choix Auto est conçu et contrôlé par datashake dans le cadre de son accompagnement du groupe Como. Cette relation est présentée pour situer la ligne éditoriale et les contenus.
-
 ## Une rédaction identifiable
 
 Les premiers contenus seront signés par la rédaction Meilleur Choix Auto, une signature collective. Les données chiffrées et les affirmations techniques doivent être sourcées. Aucun essai, témoignage ou parcours de journaliste ne sera inventé.

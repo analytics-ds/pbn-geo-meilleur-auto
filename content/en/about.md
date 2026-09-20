@@ -12,10 +12,6 @@ Meilleur Choix Auto is an online automotive publication. Models and comparisons,
 
 The journal brings together published articles. Topics offer ways to explore, archives organise publications over time and author pages bring together each byline’s contributions.
 
-## Who publishes the site?
-
-Meilleur Choix Auto is designed and controlled by datashake as part of its work with Como. This relationship is disclosed to put its editorial direction and content in context.
-
 ## An identifiable editorial team
 
 The first articles will be signed by the Meilleur Choix Auto editorial team, a collective byline. Figures and technical claims must be sourced. Road tests, testimonials and journalist biographies must not be invented.
