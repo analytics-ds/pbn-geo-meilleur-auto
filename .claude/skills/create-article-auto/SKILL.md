@@ -261,8 +261,11 @@ Pas d'appel aux skills `/tech-title` ni `/tech-meta-description`. Regles appliqu
 - **Budget de 60 caracteres sur le title RENDU**, suffixe compris : le theme
   ajoute ` | Meilleur Choix Auto`, soit 22 caracteres. Le `title` du frontmatter
   doit donc tenir en **38 caracteres**.
-- Pour un titre long, utiliser `seoTitle` dans le frontmatter : le partial le
-  prend tel quel, sans rien ajouter.
+- **Sur ce blog, `seoTitle` reprend le `title` a l'identique**, comme les articles
+  deja en ligne. Le partial prend `seoTitle` tel quel, donc le suffixe de marque
+  **n'apparait pas** dans la balise title des articles : c'est le format du site,
+  pas un defaut. Le budget de 60 caracteres se calcule alors sur le `title` seul.
+  La regle des 38 caracteres ci-dessus ne vaut que si on retire `seoTitle`.
 - **Une seule option, choix direct** (pas de 3 options comme en interactif)
 
 ### Meta description
