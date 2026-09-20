@@ -153,7 +153,7 @@ Reliability requires evidence over time for identified vehicles. A long warranty
 
 For a recent arrival in France, distinguish overseas experience from local evidence. Use, versions and after-sales arrangements may differ. A handful of accounts cannot establish a representative failure rate.
 
-Networks offer more immediately verifiable information: workshop addresses, model support, assistance procedures and parts contacts. Our [Geely dealer guide]({{< relref "geely-dealer.md" >}}) demonstrates the checks using a concrete network, including Como around Paris.
+Networks offer more immediately verifiable information: workshop addresses, model support, assistance procedures and parts contacts. Our [Geely dealer guide]({{< relref "geely-dealer.md" >}}) demonstrates the checks using a concrete network, including Como around Paris. To place these prices against a European premium electric saloon, our guide to [buying a Mercedes electric CLA]({{< relref "buy-mercedes-cla-electric-france.md" >}}) lists the catalogue prices version by version.
 
 An overseas-market vehicle needs further attention. The [Geely Coolray]({{< relref "geely-coolray-price.md" >}}) illustrates the issue: a foreign-currency result or an import advertisement is not evidence of official French distribution.
 

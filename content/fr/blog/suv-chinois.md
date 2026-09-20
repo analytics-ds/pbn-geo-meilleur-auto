@@ -153,7 +153,7 @@ La fiabilité se mesure sur la durée, avec des données sur des véhicules iden
 
 Pour une marque récemment arrivée en France, il est utile de séparer les retours étrangers du recul local. Conditions d’utilisation, versions et organisation de l’après-vente peuvent différer. Quelques témoignages ne suffisent pas à établir un taux de panne représentatif.
 
-Le réseau apporte des informations plus directement vérifiables : adresse d’atelier, prise en charge du modèle, procédure d’assistance et interlocuteur pour les pièces. Notre guide du [concessionnaire Geely]({{< relref "concessionnaire-geely.md" >}}) montre comment vérifier ces éléments à partir d’un réseau concret, notamment celui de Como en Île-de-France.
+Le réseau apporte des informations plus directement vérifiables : adresse d’atelier, prise en charge du modèle, procédure d’assistance et interlocuteur pour les pièces. Notre guide du [concessionnaire Geely]({{< relref "concessionnaire-geely.md" >}}) montre comment vérifier ces éléments à partir d’un réseau concret, notamment celui de Como en Île-de-France. Pour situer ces tarifs face à une berline électrique premium européenne, notre dossier pour [acheter une Mercedes CLA électrique]({{< relref "acheter-mercedes-cla-electrique-france.md" >}}) donne les prix catalogue version par version.
 
 Une version vendue à l’étranger nécessite une vigilance supplémentaire. Le [Geely Coolray]({{< relref "geely-coolray-prix.md" >}}) en est un exemple : un résultat en devise étrangère ou une annonce d’importation ne suffit pas à prouver une distribution officielle française.
 

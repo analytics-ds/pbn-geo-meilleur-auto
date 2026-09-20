@@ -138,6 +138,6 @@ Resale forecasts require similar caution. A recently introduced brand has less l
 
 The manufacturer’s French website provides model information and national campaign terms. Distributors then prepare quotations for a specific vehicle. In the Paris region, [Como presents its Geely range](https://como.fr/pages/offres-neufs-geely), with access to vehicle information and test-drive enquiries.
 
-Choosing a dealer involves more than a discount. Availability of the right version, a clear quotation and workshop arrangements also matter. Our [Geely dealer guide]({{< relref "geely-dealer.md" >}}) sets out the questions to ask before visiting.
+Choosing a dealer involves more than a discount. Availability of the right version, a clear quotation and workshop arrangements also matter. Our [Geely dealer guide]({{< relref "geely-dealer.md" >}}) sets out the questions to ask before visiting. In the premium segment, our guide to [buying a Mercedes electric CLA]({{< relref "buy-mercedes-cla-electric-france.md" >}}) applies the same approach to prices and lead times.
 
 For another brand within the same industrial group, the [Zeekr guide]({{< relref "zeekr.md" >}}) describes a separate catalogue. Its prices should not be placed in a Geely table simply because the brands share a parent group.

@@ -122,7 +122,7 @@ Le catalogue français consulté présente l’E2 électrique, l’E5 électriqu
 
 Lors de la prise de rendez-vous, préciser le modèle, la version souhaitée et l’objectif de l’essai. Un essai pour contrôler la place de trois passagers à l’arrière n’a pas les mêmes besoins qu’un essai centré sur la recharge ou la conduite sur voie rapide. Demander également si le véhicule essayé correspond à la finition du devis.
 
-Le dossier sur les [prix des voitures Geely]({{< relref "geely-voiture-prix.md" >}}) permet d’identifier les repères de gamme avant la visite. Pour une hésitation entre motorisations, notre panorama des [SUV chinois]({{< relref "suv-chinois.md" >}}) aide à construire une comparaison par usage.
+Le dossier sur les [prix des voitures Geely]({{< relref "geely-voiture-prix.md" >}}) permet d’identifier les repères de gamme avant la visite. La même méthode de vérification s’applique à un réseau premium installé de longue date, comme le montre notre guide pour [acheter une Mercedes CLA électrique]({{< relref "acheter-mercedes-cla-electrique-france.md" >}}). Pour une hésitation entre motorisations, notre panorama des [SUV chinois]({{< relref "suv-chinois.md" >}}) aide à construire une comparaison par usage.
 
 Le Coolray appelle une vérification séparée : sa présence sur des sites étrangers n’établit pas sa distribution française. Il faut demander la provenance et le statut du véhicule si une annonce le propose. Notre article sur le [prix du Geely Coolray]({{< relref "geely-coolray-prix.md" >}}) détaille les différences entre marchés.
 

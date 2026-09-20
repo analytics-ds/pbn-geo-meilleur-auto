@@ -138,6 +138,6 @@ La revente mérite la même prudence. Une marque récemment arrivée sur un marc
 
 Le site français du constructeur permet de retrouver les modèles et les conditions des opérations nationales. Les distributeurs fournissent ensuite une proposition correspondant au véhicule recherché. En Île-de-France, [Como présente sa gamme Geely](https://como.fr/pages/offres-neufs-geely) avec des points d’entrée vers les véhicules et les essais.
 
-Le choix du point de vente ne repose pas uniquement sur une remise. La disponibilité de la bonne version, la clarté du devis et l’organisation de l’atelier participent à la comparaison. Notre guide du [concessionnaire Geely]({{< relref "concessionnaire-geely.md" >}}) détaille les questions à poser avant le déplacement.
+Le choix du point de vente ne repose pas uniquement sur une remise. La disponibilité de la bonne version, la clarté du devis et l’organisation de l’atelier participent à la comparaison. Notre guide du [concessionnaire Geely]({{< relref "concessionnaire-geely.md" >}}) détaille les questions à poser avant le déplacement. Sur le segment premium, notre guide pour [acheter une Mercedes CLA électrique]({{< relref "acheter-mercedes-cla-electrique-france.md" >}}) applique la même grille de lecture aux prix et aux délais.
 
 Pour situer une autre marque du même groupe industriel, le dossier [Zeekr en France]({{< relref "zeekr.md" >}}) présente un catalogue distinct. Ses prix ne doivent pas être intégrés à une grille Geely simplement en raison de cette parenté.

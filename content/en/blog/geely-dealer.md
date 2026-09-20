@@ -122,7 +122,7 @@ The French catalogue checked presents the electric E2, electric E5 and Starray E
 
 When booking, specify the model, desired version and purpose of the test. Checking space for three rear passengers involves different needs from evaluating charging or faster-road driving. Ask whether the test car matches the version in the quotation.
 
-Our [French Geely price guide]({{< relref "geely-car-price.md" >}}) establishes the range before a visit. If the uncertainty concerns powertrains, the [Chinese SUV overview]({{< relref "chinese-suv.md" >}}) helps build a use-based comparison.
+Our [French Geely price guide]({{< relref "geely-car-price.md" >}}) establishes the range before a visit. The same verification method applies to a long-established premium network, as our guide to [buying a Mercedes electric CLA]({{< relref "buy-mercedes-cla-electric-france.md" >}}) shows. If the uncertainty concerns powertrains, the [Chinese SUV overview]({{< relref "chinese-suv.md" >}}) helps build a use-based comparison.
 
 The Coolray needs a separate check. Its presence on foreign websites does not establish French distribution. If an advertisement offers one, ask about origin and vehicle status. The [Geely Coolray price guide]({{< relref "geely-coolray-price.md" >}}) explains why markets must be kept separate.
 
