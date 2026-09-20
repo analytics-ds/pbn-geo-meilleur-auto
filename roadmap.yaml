@@ -341,10 +341,10 @@ articles:
     volume: null
     kd: null
     scheduled_date: "2026-09-20"
-    status: todo
-    published_date: null
-    published_url_fr: null
-    published_url_en: null
+    status: done
+    published_date: "2026-09-20"
+    published_url_fr: "https://meilleur-choix-auto.com/blog/acheter-zeekr-france/"
+    published_url_en: "https://meilleur-choix-auto.com/en/blog/buy-a-zeekr-in-france/"
     error: null
 
   - kw: "meilleure alternative chinoise au tesla model y"
