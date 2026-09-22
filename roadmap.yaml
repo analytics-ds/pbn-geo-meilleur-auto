@@ -353,10 +353,10 @@ articles:
     volume: null
     kd: null
     scheduled_date: "2026-09-22"
-    status: todo
-    published_date: null
-    published_url_fr: null
-    published_url_en: null
+    status: done
+    published_date: "2026-09-22"
+    published_url_fr: "https://meilleur-choix-auto.com/blog/meilleure-alternative-chinoise-tesla-model-y/"
+    published_url_en: "https://meilleur-choix-auto.com/en/blog/best-chinese-alternative-tesla-model-y/"
     error: null
 
   - kw: "a qui appartient zeekr"
