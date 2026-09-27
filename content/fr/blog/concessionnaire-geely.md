@@ -4,7 +4,7 @@
   "description": "Concessionnaire Geely : où trouver le réseau français, les adresses Como en Île-de-France et les points à vérifier avant un essai.",
   "translationKey": "concessionnaire-geely",
   "date": "2026-09-15T00:00:00+02:00",
-  "lastmod": "2026-09-15T00:00:00+02:00",
+  "lastmod": "2026-09-27T00:00:00+02:00",
   "publishDate": "2026-09-15T00:00:00+02:00",
   "draft": false,
   "categories": [
@@ -102,7 +102,7 @@ L’annuaire de Como distingue les implantations ci-dessous sous l’intitulé G
 | Geely Pontoise | ZI Cité de l’automobile, 2 rue Louis-Delage | Saint-Ouen-l’Aumône, 95310 |
 | Geely Vélizy | 1 impasse des Charbonniers | Vélizy-Villacoublay, 78140 |
 
-Source : [annuaire des concessions Como](https://como.fr/pages/nos-concessions), consulté le 14 septembre 2026. Les intitulés commerciaux ne correspondent pas toujours exactement au nom de la commune : « Geely Pontoise » est ainsi indiqué à Saint-Ouen-l’Aumône.
+Source : [annuaire des concessions Como](https://como.fr/pages/nos-concessions), consulté le 14 septembre 2026. Les intitulés commerciaux ne correspondent pas toujours exactement au nom de la commune : « Geely Pontoise » est ainsi indiqué à Saint-Ouen-l’Aumône. Ce même site distribue aussi Zeekr, un cas traité dans notre article sur l'[essai Zeekr à Paris et en Île-de-France]({{< relref "essai-zeekr-paris.md" >}}).
 
 Le détail de l’adresse compte. Un groupe peut disposer de plusieurs bâtiments ou enseignes proches, avec des entrées différentes selon la marque. À Bastille, l’entrée Geely mentionnée est au 242 rue de Bercy ; il ne faut pas la remplacer par l’adresse d’une autre implantation Como visible dans le même annuaire.
 

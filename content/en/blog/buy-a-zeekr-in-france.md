@@ -4,7 +4,7 @@
   "description": "Buying a Zeekr in France: available models, dealer network, prices and the steps to take before signing, new or used.",
   "translationKey": "acheter-zeekr-france",
   "date": "2026-09-20T00:00:00+02:00",
-  "lastmod": "2026-09-20T00:00:00+02:00",
+  "lastmod": "2026-09-27T00:00:00+02:00",
   "publishDate": "2026-09-20T00:00:00+02:00",
   "draft": false,
   "categories": [
@@ -93,7 +93,7 @@ The 001 made the brand known before its arrival in France. It remains the longes
 
 Zeekr's French network was built up gradually from 2026, with development deliberately independent from that of Volvo or Polestar, two other Geely group brands already present in France. The first dealer sites opened in Aix-en-Provence, before further locations opened in Lyon, Fréjus, Saint-Étienne and Rennes.
 
-The stated objective for 2026 was twenty-five to thirty dealer sites, with an after-sales network twice as dense, intended to double the following year. This footprint therefore remains tighter than that of a generalist manufacturer. Before travelling, checking that the nearest dealer actually carries the model sought, not just the range as a whole, avoids a wasted trip.
+The stated objective for 2026 was twenty-five to thirty dealer sites, with an after-sales network twice as dense, intended to double the following year. This footprint therefore remains tighter than that of a generalist manufacturer. Before travelling, checking that the nearest dealer actually carries the model sought, not just the range as a whole, avoids a wasted trip. In the Île-de-France region, where no site is open in Paris itself, the options are set out in our comparison for a [Zeekr test drive in Paris]({{< relref "zeekr-test-drive-paris.md" >}}).
 
 The logic of a recently launched brand's network differs from that of a long-established one. Our [Geely dealer]({{< relref "geely-dealer.md" >}}) guide details this verification method, transposable to Zeekr while keeping in mind that the two networks remain separate.
 

@@ -4,7 +4,7 @@
   "description": "Find a Geely dealer in France, explore Como locations around Paris and understand what to check before a showroom visit.",
   "translationKey": "concessionnaire-geely",
   "date": "2026-09-15T00:00:00+02:00",
-  "lastmod": "2026-09-15T00:00:00+02:00",
+  "lastmod": "2026-09-27T00:00:00+02:00",
   "publishDate": "2026-09-15T00:00:00+02:00",
   "draft": false,
   "categories": [
@@ -102,7 +102,7 @@ Como’s directory identifies the following locations under the Geely name. It l
 | Geely Pontoise | ZI Cité de l’automobile, 2 rue Louis-Delage | Saint-Ouen-l’Aumône, 95310 |
 | Geely Vélizy | 1 impasse des Charbonniers | Vélizy-Villacoublay, 78140 |
 
-Source: [Como’s dealership directory](https://como.fr/pages/nos-concessions), checked on 14 September 2026. A trading name does not always match the municipality. The location called Geely Pontoise is listed in Saint-Ouen-l’Aumône.
+Source: [Como’s dealership directory](https://como.fr/pages/nos-concessions), checked on 14 September 2026. A trading name does not always match the municipality. The location called Geely Pontoise is listed in Saint-Ouen-l’Aumône. The same site also distributes Zeekr, a case covered in our article on a [Zeekr test drive in Paris and the Île-de-France region]({{< relref "zeekr-test-drive-paris.md" >}}).
 
 The exact address matters. A group can have neighbouring buildings or brand entrances. In Bastille, the Geely entry is listed at 242 rue de Bercy; replacing it with another Como address appearing in the same directory could send a visitor to the wrong entrance.
 

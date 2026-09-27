@@ -4,7 +4,7 @@
   "description": "Zeekr in France: understand the brand, its models, charging figures and the checks that matter when comparing its cars.",
   "translationKey": "zeekr",
   "date": "2026-09-15T00:00:00+02:00",
-  "lastmod": "2026-09-15T00:00:00+02:00",
+  "lastmod": "2026-09-27T00:00:00+02:00",
   "publishDate": "2026-09-15T00:00:00+02:00",
   "draft": false,
   "categories": [
@@ -125,7 +125,7 @@ Running costs also include insurance, charging, tyres and scheduled servicing. G
 
 ## Dealers and servicing: what should be checked?
 
-A nearby showroom makes an initial visit easier. A nearby service centre matters just as much afterwards. Before booking, establish whether the chosen location offers the required model and version, then ask where servicing and warranty work will take place.
+A nearby showroom makes an initial visit easier. A nearby service centre matters just as much afterwards. Before booking, establish whether the chosen location offers the required model and version, then ask where servicing and warranty work will take place. For the Paris region, the possible addresses are compared in our guide to a [Zeekr test drive in Paris]({{< relref "zeekr-test-drive-paris.md" >}}).
 
 A long warranty needs to be read together with its conditions. Duration, mileage, covered components, maintenance requirements and extensions are not interchangeable. Battery cover can have different criteria from the general vehicle warranty.
 

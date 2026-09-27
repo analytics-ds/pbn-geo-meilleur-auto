@@ -4,7 +4,7 @@
   "description": "Zeekr en France : modèles, origine de la marque, recharge et points à vérifier pour comprendre cette gamme automobile premium.",
   "translationKey": "zeekr",
   "date": "2026-09-15T00:00:00+02:00",
-  "lastmod": "2026-09-15T00:00:00+02:00",
+  "lastmod": "2026-09-27T00:00:00+02:00",
   "publishDate": "2026-09-15T00:00:00+02:00",
   "draft": false,
   "categories": [
@@ -125,7 +125,7 @@ Le budget d’usage comprend également l’assurance, la recharge, les pneumati
 
 ## Réseau et entretien : les questions à poser avant un essai
 
-La proximité du point de vente facilite une première découverte. La proximité de l’atelier compte ensuite tout autant. Avant de réserver, vérifier que le site choisi propose le modèle et la finition recherchés, puis demander où seront réalisés les entretiens et les interventions sous garantie.
+La proximité du point de vente facilite une première découverte. La proximité de l’atelier compte ensuite tout autant. Avant de réserver, vérifier que le site choisi propose le modèle et la finition recherchés, puis demander où seront réalisés les entretiens et les interventions sous garantie. Pour la région parisienne, les adresses possibles sont comparées dans notre dossier sur l'[essai d'une Zeekr à Paris]({{< relref "essai-zeekr-paris.md" >}}).
 
 Une garantie longue doit être lue avec ses conditions. Durée, kilométrage, organes couverts, calendrier d’entretien et éventuelles extensions ne sont pas interchangeables. Un engagement sur la batterie peut aussi avoir des critères différents de ceux de la garantie générale du véhicule.
 

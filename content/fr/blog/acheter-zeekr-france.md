@@ -4,7 +4,7 @@
   "description": "Acheter une Zeekr en France : modèles disponibles, réseau de points de vente, prix et étapes avant de signer un achat neuf ou occasion.",
   "translationKey": "acheter-zeekr-france",
   "date": "2026-09-20T00:00:00+02:00",
-  "lastmod": "2026-09-20T00:00:00+02:00",
+  "lastmod": "2026-09-27T00:00:00+02:00",
   "publishDate": "2026-09-20T00:00:00+02:00",
   "draft": false,
   "categories": [
@@ -93,7 +93,7 @@ Le 001 a fait connaître la marque avant son arrivée en France. Il reste le mod
 
 Le réseau français de Zeekr s'est construit progressivement à partir de 2026, avec un développement volontairement indépendant de celui de Volvo ou de Polestar, deux autres marques du groupe Geely déjà présentes en France. Les premiers points de vente ouverts se sont installés à Aix-en-Provence, avant l'ouverture d'autres implantations à Lyon, Fréjus, Saint-Étienne et Rennes.
 
-L'objectif annoncé pour 2026 portait sur vingt-cinq à trente points de vente, avec un réseau après-vente deux fois plus dense, destiné à doubler l'année suivante. Ce maillage reste donc plus resserré que celui d'un constructeur généraliste. Avant de se déplacer, vérifier que le point de vente le plus proche présente réellement le modèle recherché, et non uniquement la gamme dans son ensemble, évite un trajet inutile.
+L'objectif annoncé pour 2026 portait sur vingt-cinq à trente points de vente, avec un réseau après-vente deux fois plus dense, destiné à doubler l'année suivante. Ce maillage reste donc plus resserré que celui d'un constructeur généraliste. Avant de se déplacer, vérifier que le point de vente le plus proche présente réellement le modèle recherché, et non uniquement la gamme dans son ensemble, évite un trajet inutile. En Île-de-France, où aucun site n'est ouvert dans Paris même, les options sont détaillées dans notre comparatif pour un [essai Zeekr à Paris]({{< relref "essai-zeekr-paris.md" >}}).
 
 La logique d'un réseau de marque récente diffère de celle d'un réseau installé de longue date. Notre guide du [concessionnaire Geely]({{< relref "concessionnaire-geely.md" >}}) détaille cette méthode de vérification, transposable à Zeekr en gardant à l'esprit que les deux réseaux restent distincts.
 
