@@ -375,10 +375,10 @@ articles:
     volume: null
     kd: null
     scheduled_date: "2026-09-29"
-    status: todo
-    published_date: null
-    published_url_fr: null
-    published_url_en: null
+    status: done
+    published_date: "2026-09-29"
+    published_url_fr: "https://meilleur-choix-auto.com/blog/prix-mercedes-cla-electrique/"
+    published_url_en: "https://meilleur-choix-auto.com/en/blog/mercedes-cla-electric-price/"
     error: null
 
   - kw: "geely ou mg"

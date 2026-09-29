@@ -11,3 +11,7 @@ Journal des publications automatiques (`/create-article-auto`). Une ligne par ar
 
 - 2026-09-22 | Meilleure alternative chinoise au Tesla Model Y (FR+EN) | Electrique | auto | mode corpus (score 75 vs avg 46, best 66) | AIO non declenchee | image pexels (2 requetes ecartees pour mismatch de marque avant validation visuelle) | 3 liens internes (suv-chinois, zeekr, concessionnaire-geely)
 - 2026-09-25 | A qui appartient Zeekr : le groupe derriere la marque (FR+EN) | Conseils pratiques | auto | mode corpus (score 67 vs avg 43, best 60) | AIO non declenchee | image pexels (I'm Zion, id 26868121) | 4 liens internes (zeekr, concessionnaire-geely, geely-voiture-prix, acheter-zeekr-france)
+
+## Semaine du 2026-09-29
+
+- 2026-09-29 | Prix de la Mercedes CLA electrique en France (FR+EN) | Financement | auto | mode corpus (score 48 vs avg 48, best 55, pas d'enrichissement car deja au niveau de la moyenne) | AIO non declenchee | image pexels (Nevtuğ Yalçın, id 39222166) | 3 liens internes (acheter-mercedes-cla-electrique-france, geely-coolray-prix, geely-voiture-prix)
