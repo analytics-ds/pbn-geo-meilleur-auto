@@ -386,10 +386,10 @@ articles:
     volume: null
     kd: null
     scheduled_date: "2026-10-02"
-    status: todo
-    published_date: null
-    published_url_fr: null
-    published_url_en: null
+    status: done
+    published_date: "2026-10-02"
+    published_url_fr: "https://meilleur-choix-auto.com/blog/geely-ou-mg/"
+    published_url_en: "https://meilleur-choix-auto.com/en/blog/geely-or-mg/"
     error: null
 
   - kw: "zeekr choisir x 7x ou 001"
